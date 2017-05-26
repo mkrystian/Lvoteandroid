@@ -1,6 +1,7 @@
 package pl.edu.agh.student.mprezes.lvoteandroid.service;
 
 import feign.Feign;
+import feign.codec.ErrorDecoder;
 import feign.jackson.JacksonDecoder;
 import feign.jackson.JacksonEncoder;
 import pl.edu.agh.student.mprezes.lvoteandroid.client.service.ClientService;
@@ -14,11 +15,21 @@ public abstract class AbstractService {
 
     private final static String API_URL = "http://192.168.99.100:8080/api";
 
-    protected final <T extends ClientService> T getClientService(Class<T> serviceClass) {
+    private Feign.Builder feignBuilder() {
         return Feign
                 .builder()
                 .encoder(new JacksonEncoder())
-                .decoder(new JacksonDecoder())
+                .decoder(new JacksonDecoder());
+    }
+
+    protected final <T extends ClientService> T getClientService(Class<T> serviceClass) {
+        return feignBuilder()
+                .target(serviceClass, API_URL);
+    }
+
+    protected final <T extends ClientService> T getClientService(Class<T> serviceClass, ErrorDecoder errorDecoder) {
+        return feignBuilder()
+                .errorDecoder(errorDecoder)
                 .target(serviceClass, API_URL);
     }
 

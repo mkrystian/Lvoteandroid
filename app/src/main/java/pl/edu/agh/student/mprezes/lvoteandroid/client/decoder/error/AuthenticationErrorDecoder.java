@@ -17,7 +17,7 @@ public class AuthenticationErrorDecoder implements ErrorDecoder {
     @Override
     public Exception decode(String methodKey, Response response) {
         if (401 == response.status()) {
-            return new AuthenticatorException("Incorrect username or password");
+            return new AuthenticatorException(response.reason());
         }
         return new RuntimeException("Could not authenticate. Response: " + response);
     }

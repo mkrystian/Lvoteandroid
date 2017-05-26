@@ -1,4 +1,4 @@
-#Sat May 27 00:28:37 CEST 2017
+#Sat May 27 00:47:12 CEST 2017
 base.0=C\:\\Users\\majew\\Lvoteandroid\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\5
 renamed.0=classes.dex
 file.0=C\:\\Users\\majew\\Lvoteandroid\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\5\\classes.dex

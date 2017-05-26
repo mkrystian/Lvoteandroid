@@ -34,6 +34,7 @@ import java.util.List;
 
 import pl.edu.agh.student.mprezes.lvoteandroid.client.ConnectionRunner;
 import pl.edu.agh.student.mprezes.lvoteandroid.client.presenter.LoginPresenter;
+import pl.edu.agh.student.mprezes.lvoteandroid.model.authentication.AuthenticationResult;
 import pl.edu.agh.student.mprezes.lvoteandroid.service.authentication.AuthenticationService;
 import pl.edu.agh.student.mprezes.lvoteandroid.service.authentication.AuthenticationServiceImpl;
 
@@ -295,7 +296,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+    public class UserLoginTask extends AsyncTask<Void, Void, AuthenticationResult> {
 
         private final String mUsername;
         private final String mPassword;
@@ -306,25 +307,25 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
 
         @Override
-        protected Boolean doInBackground(Void... params) {
+        protected AuthenticationResult doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
 
 
             AuthenticationService service = new AuthenticationServiceImpl();
 
             // TODO: register the new account here.
-            return service.authenticateUser(mUsername, mPassword).isAuthenticationCorrect();
+            return service.authenticateUser(mUsername, mPassword);
         }
 
         @Override
-        protected void onPostExecute(final Boolean success) {
+        protected void onPostExecute(final AuthenticationResult authenticationResult) {
             mAuthTask = null;
             showProgress(false);
 
-            if (success) {
+            if (authenticationResult.isAuthenticationCorrect()) {
                 finish();
             } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
+                mPasswordView.setError(authenticationResult.getErrorMessage());
                 mPasswordView.requestFocus();
             }
         }

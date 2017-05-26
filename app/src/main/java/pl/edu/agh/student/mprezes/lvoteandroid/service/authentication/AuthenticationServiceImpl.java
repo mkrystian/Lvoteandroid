@@ -1,7 +1,12 @@
 package pl.edu.agh.student.mprezes.lvoteandroid.service.authentication;
 
+import android.accounts.AuthenticatorException;
+
 import org.apache.commons.lang3.StringUtils;
 
+import java.lang.reflect.UndeclaredThrowableException;
+
+import pl.edu.agh.student.mprezes.lvoteandroid.client.decoder.error.AuthenticationErrorDecoder;
 import pl.edu.agh.student.mprezes.lvoteandroid.client.dto.AuthenticationCredentialsDTO;
 import pl.edu.agh.student.mprezes.lvoteandroid.client.dto.AuthenticationResponseDTO;
 import pl.edu.agh.student.mprezes.lvoteandroid.client.service.AuthenticationServiceClient;
@@ -18,7 +23,7 @@ public class AuthenticationServiceImpl extends AbstractService implements Authen
     private AuthenticationServiceClient authenticationServiceClient;
 
     public AuthenticationServiceImpl() {
-        authenticationServiceClient = getClientService(AuthenticationServiceClient.class);
+        authenticationServiceClient = getClientService(AuthenticationServiceClient.class, new AuthenticationErrorDecoder());
     }
 
     @Override
@@ -28,11 +33,20 @@ public class AuthenticationServiceImpl extends AbstractService implements Authen
         authenticationCredentialsDTO.setPassword(password);
         authenticationCredentialsDTO.setRememberMe(false);
 
-        AuthenticationResponseDTO authenticationResponseDTO = authenticationServiceClient.authenticateUser(authenticationCredentialsDTO);
-
         AuthenticationResult result = new AuthenticationResult();
 
-        result.setAuthenticationCorrect(StringUtils.isNotEmpty(authenticationResponseDTO.getToken()));
+        try {
+            AuthenticationResponseDTO authenticationResponseDTO = authenticationServiceClient.authenticateUser(authenticationCredentialsDTO);
+            result.setAuthenticationCorrect(StringUtils.isNotEmpty(authenticationResponseDTO.getToken()));
+        } catch (UndeclaredThrowableException e) {
+            result.setAuthenticationCorrect(false);
+
+            if (e.getCause() instanceof AuthenticatorException) {
+                result.setErrorMessage(e.getCause().getMessage());
+            } else {
+                e.printStackTrace();
+            }
+        }
 
         return result;
     }
