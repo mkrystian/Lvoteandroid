@@ -1,4 +1,4 @@
-package pl.edu.agh.student.mprezes.lvoteandroid.services;
+package pl.edu.agh.student.mprezes.lvoteandroid.client.decoder.error;
 
 import android.accounts.AuthenticatorException;
 
@@ -6,10 +6,11 @@ import feign.Response;
 import feign.codec.ErrorDecoder;
 
 /**
- * Created by majew on 25.05.2017.
+ * @author Krystian Majewski
+ * @since 25.05.2017
  */
 
-class AuthenticationErrorDecoder implements ErrorDecoder {
+public class AuthenticationErrorDecoder implements ErrorDecoder {
 
     private final int HTTP_ERROR_BAD_CREDENTIALS = 401;
 

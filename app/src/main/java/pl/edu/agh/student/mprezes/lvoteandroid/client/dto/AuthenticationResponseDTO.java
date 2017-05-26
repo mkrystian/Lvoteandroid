@@ -1,15 +1,16 @@
-package pl.edu.agh.student.mprezes.lvoteandroid.services.dto;
+package pl.edu.agh.student.mprezes.lvoteandroid.client.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Created by majew on 25.05.2017.
+ * @author Krystian Majewski
+ * @since 25.05.2017
  */
 
 public class AuthenticationResponseDTO {
 
     @JsonProperty("id_token")
-    String token;
+    private String token;
 
     public String getToken() {
         return token;

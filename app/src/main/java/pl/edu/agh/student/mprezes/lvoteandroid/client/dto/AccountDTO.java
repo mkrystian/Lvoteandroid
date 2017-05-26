@@ -1,11 +1,12 @@
-package pl.edu.agh.student.mprezes.lvoteandroid.services.dto;
+package pl.edu.agh.student.mprezes.lvoteandroid.client.dto;
 
 import org.threeten.bp.LocalDateTime;
 
 import java.util.List;
 
 /**
- * Created by majew on 25.05.2017.
+ * @author Krystian Majewski
+ * @since 25.05.2017
  */
 
 public class AccountDTO {
@@ -18,8 +19,8 @@ public class AccountDTO {
     boolean activated;
     private String langKey;
     private String createdBy;
-    LocalDateTime createdDate;
+    private LocalDateTime createdDate;
     private String lastModifiedBy;
-    LocalDateTime lastModifiedDate;
-    List<String> authorities;
+    private LocalDateTime lastModifiedDate;
+    private List<String> authorities;
 }

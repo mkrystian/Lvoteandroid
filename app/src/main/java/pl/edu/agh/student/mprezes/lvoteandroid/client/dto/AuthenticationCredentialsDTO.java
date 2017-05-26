@@ -1,14 +1,15 @@
-package pl.edu.agh.student.mprezes.lvoteandroid.services.dto;
+package pl.edu.agh.student.mprezes.lvoteandroid.client.dto;
 
 /**
- * Created by majew on 25.05.2017.
+ * @author Krystian Majewski
+ * @since 25.05.2017
  */
 
 public class AuthenticationCredentialsDTO {
 
-    String username;
-    String password;
-    boolean rememberMe;
+    private String username;
+    private String password;
+    private boolean rememberMe;
 
     public String getUsername() {
         return username;
