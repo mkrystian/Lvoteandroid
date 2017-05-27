@@ -1,6 +1,0 @@
-COMMAND=PREDEX_LIBRARY_TO_DEX_ARCHIVE
-FILE_PATH=C:\Users\majew\Lvoteandroid\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar
-FILE_HASH=2b58be3f8560b3b79c528a0d13a0ef5b6e99b413
-DX_VERSION=1.13
-JUMBO_MODE=true
-OPTIMIZE=true
