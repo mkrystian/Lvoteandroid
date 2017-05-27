@@ -1,6 +1,6 @@
 package pl.edu.agh.student.mprezes.lvoteandroid.client.presenter;
 
-import pl.edu.agh.student.mprezes.lvoteandroid.LoginActivity;
+import pl.edu.agh.student.mprezes.lvoteandroid.activities.LoginActivity;
 
 /**
  * @author Krystian Majewski

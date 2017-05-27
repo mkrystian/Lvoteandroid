@@ -1,4 +1,4 @@
-package pl.edu.agh.student.mprezes.lvoteandroid;
+package pl.edu.agh.student.mprezes.lvoteandroid.activities;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -32,7 +32,7 @@ import com.jakewharton.threetenabp.AndroidThreeTen;
 import java.util.ArrayList;
 import java.util.List;
 
-import pl.edu.agh.student.mprezes.lvoteandroid.client.ConnectionRunner;
+import pl.edu.agh.student.mprezes.lvoteandroid.R;
 import pl.edu.agh.student.mprezes.lvoteandroid.client.presenter.LoginPresenter;
 import pl.edu.agh.student.mprezes.lvoteandroid.model.authentication.AuthenticationResult;
 import pl.edu.agh.student.mprezes.lvoteandroid.service.authentication.AuthenticationService;
@@ -151,7 +151,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * errors are presented and no actual login attempt is made.
      */
     private void attemptLogin() {
-        (new Thread(new ConnectionRunner())).start();
 
         if (mAuthTask != null) {
             return;
