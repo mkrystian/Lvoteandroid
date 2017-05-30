@@ -1,5 +1,6 @@
 package pl.edu.agh.student.mprezes.lvoteandroid.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -12,8 +13,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import pl.edu.agh.student.mprezes.lvoteandroid.R;
+import pl.edu.agh.student.mprezes.lvoteandroid.model.Account;
+import pl.edu.agh.student.mprezes.lvoteandroid.service.ContextProvider;
 
 public class MenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -42,6 +46,16 @@ public class MenuActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+    }
+
+    private void createNavigationHeader() {
+        Account userAccount = ContextProvider.getApplicationContext().getUserAccount();
+        TextView usernameTextView = (TextView) findViewById(R.id.username);
+        usernameTextView.setText(userAccount.getUsername());
+
+        TextView nameTextView = (TextView) findViewById(R.id.name);
+        nameTextView.setText(String.format("%s %s", userAccount.getFirstName(), userAccount.getLastName()));
     }
 
     @Override
@@ -58,6 +72,7 @@ public class MenuActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu, menu);
+        createNavigationHeader();
         return true;
     }
 
@@ -90,14 +105,19 @@ public class MenuActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_manage) {
 
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        } else if (id == R.id.nav_logout) {
+            logout();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void logout() {
+        ContextProvider.setApplicationContext(null);
+        ContextProvider.setConnectionContext(null);
+        startActivity(new Intent(this, LoginActivity.class));
+        finish();
     }
 }
