@@ -10,7 +10,7 @@ import pl.edu.agh.student.mprezes.lvoteandroid.client.dto.AccountDTO;
  * @author Krystian Majewski
  * @since 25.05.2017
  */
-public interface AccountServiceClientService extends ClientService {
+public interface AccountClientService extends ClientService {
 
 
     @RequestLine("GET /account")

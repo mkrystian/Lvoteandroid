@@ -5,6 +5,8 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import java.io.Serializable;
 
+import pl.edu.agh.student.mprezes.lvoteandroid.model.ErrorMessage;
+
 /**
  * @author Krystian Majewski
  * @since 26.05.2017
@@ -15,7 +17,7 @@ public class AuthenticationResult implements Serializable {
     private static final long serialVersionUID = -210172248770708175L;
 
     private boolean authenticationCorrect;
-    private String errorMessage;
+    private ErrorMessage errorMessage;
 
     public boolean isAuthenticationCorrect() {
         return authenticationCorrect;
@@ -25,11 +27,11 @@ public class AuthenticationResult implements Serializable {
         this.authenticationCorrect = authenticationCorrect;
     }
 
-    public String getErrorMessage() {
+    public ErrorMessage getErrorMessage() {
         return errorMessage;
     }
 
-    public void setErrorMessage(String errorMessage) {
+    public void setErrorMessage(ErrorMessage errorMessage) {
         this.errorMessage = errorMessage;
     }
 

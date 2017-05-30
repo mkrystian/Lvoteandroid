@@ -39,4 +39,14 @@ public class ContextProvider {
         return getConnectionContext().getHeadersMap();
     }
 
+    public static ApplicationContext getApplicationContext() {
+        return getInstance().applicationContext;
+    }
+
+    public static void setApplicationContext(ApplicationContext applicationContext) {
+        getInstance().applicationContext = applicationContext;
+    }
+
+
+
 }

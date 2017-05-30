@@ -10,4 +10,6 @@ import pl.edu.agh.student.mprezes.lvoteandroid.model.Account;
 public interface AccountService {
 
     Account getAccount();
+
+    void setApplicationContext();
 }

@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -68,7 +69,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mProgressView;
     private View mLoginFormView;
     private LoginPresenter presenter = new LoginPresenter(this);
-
 
 
     @Override
@@ -291,6 +291,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         int IS_PRIMARY = 1;
     }
 
+    private void startMenuActivity() {
+        startActivity(new Intent(null, MenuActivity.class));
+    }
+
     /**
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
@@ -322,9 +326,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
 
             if (authenticationResult.isAuthenticationCorrect()) {
-                finish();
+                startMenuActivity();
             } else {
-                mPasswordView.setError(authenticationResult.getErrorMessage());
+                mPasswordView.setError(getString(authenticationResult.getErrorMessage().getResourrceId()));
                 mPasswordView.requestFocus();
             }
         }
