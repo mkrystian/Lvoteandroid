@@ -8,4 +8,52 @@
     tools:context="pl.edu.agh.student.mprezes.lvoteandroid.activities.MenuActivity"
     tools:showIn="@layout/app_bar_menu">
 
+
+    <LinearLayout
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="344dp"
+        android:layout_height="495dp"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/list_of_available_votings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:textAllCaps="false"
+            android:text="@string/list_of_available_votings" />
+
+        <Button
+            android:id="@+id/create_new_votings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:textAllCaps="false"
+            android:text="@string/create_new_votings" />
+
+        <Button
+            android:id="@+id/manage_groups"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:textAllCaps="false"
+            android:text="@string/manage_groups" />
+
+        <Button
+            android:id="@+id/results_of_finished_votings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:textAllCaps="false"
+            android:text="@string/results_of_finished_votings" />
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>

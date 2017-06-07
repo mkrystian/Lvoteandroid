@@ -15,6 +15,7 @@ import android.util.SparseArray;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import pl.edu.agh.student.mprezes.lvoteandroid.R;
@@ -26,6 +27,10 @@ public class MenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private SparseArray<ActionCommand> actionMap;
+    private Button availableVotingsButton;
+    private Button createVotingButton;
+    private Button manageGroupsButton;
+    private Button resultsVotingsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,26 +60,6 @@ public class MenuActivity extends AppCompatActivity
         createActionMap();
     }
 
-    private void createActionMap() {
-        actionMap = new SparseArray<>();
-        actionMap.put(R.id.nav_logout, new ActionCommand() {
-            @Override
-            public void execute() {
-                logout();
-            }
-        });
-
-    }
-
-    private void createNavigationHeader() {
-        Account userAccount = ContextProvider.getApplicationContext().getUserAccount();
-        TextView usernameTextView = (TextView) findViewById(R.id.username);
-        usernameTextView.setText(userAccount.getUsername());
-
-        TextView nameTextView = (TextView) findViewById(R.id.name);
-        nameTextView.setText(String.format("%s %s", userAccount.getFirstName(), userAccount.getLastName()));
-    }
-
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -90,6 +75,7 @@ public class MenuActivity extends AppCompatActivity
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu, menu);
         createNavigationHeader();
+        createMenuButtons();
         return true;
     }
 
@@ -121,10 +107,66 @@ public class MenuActivity extends AppCompatActivity
         return true;
     }
 
+    private void createActionMap() {
+        actionMap = new SparseArray<>();
+        actionMap.put(R.id.nav_logout, new ActionCommand() {
+            @Override
+            public void execute() {
+                logout();
+            }
+        });
+
+    }
+
+
+    private void createNavigationHeader() {
+        Account userAccount = ContextProvider.getApplicationContext().getUserAccount();
+        TextView usernameTextView = (TextView) findViewById(R.id.username);
+        usernameTextView.setText(userAccount.getUsername());
+
+        TextView nameTextView = (TextView) findViewById(R.id.name);
+        nameTextView.setText(String.format("%s %s", userAccount.getFirstName(), userAccount.getLastName()));
+    }
+
+    private void createMenuButtons() {
+        availableVotingsButton = (Button) findViewById(R.id.list_of_available_votings);
+        createVotingButton = (Button) findViewById(R.id.create_new_votings);
+        manageGroupsButton = (Button) findViewById(R.id.manage_groups);
+        resultsVotingsButton = (Button) findViewById(R.id.results_of_finished_votings);
+
+        availableVotingsButton.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MenuActivity.this, AvailableVotingsActivity.class));
+            }
+        });
+        createVotingButton.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        manageGroupsButton.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MenuActivity.this, ManageGroupsActivity.class));
+
+            }
+        });
+        resultsVotingsButton.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+    }
+
     private void logout() {
         ContextProvider.setApplicationContext(null);
         ContextProvider.setConnectionContext(null);
         startActivity(new Intent(this, LoginActivity.class));
         finish();
     }
+
+
 }
