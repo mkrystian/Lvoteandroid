@@ -26,6 +26,10 @@
     <string name="results_of_finished_votings">Results of finished votings</string>
     <string name="title_activity_available_votings">Available Votings</string>
     <string name="title_activity_manage_groups">Manage Groups</string>
-    <string name="your_groups">Your groups</string>
-    <string name="groups_you_belong">Groups you belong</string>
+    <string name="your_groups">Your groups:</string>
+    <string name="groups_you_belong">Groups you belong:</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="users">Users</string>
+    <string name="add_group">Add Group</string>
 </resources>

@@ -17,13 +17,26 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteY="8dp">
 
-
-        <TextView
-            android:id="@+id/textView"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/your_groups"
-            android:textAlignment="center" />
+            android:layout_height="40dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_marginEnd="20dp"
+                android:text="@string/your_groups" />
+
+            <Button
+                style="@style/Widget.AppCompat.Button.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/add_group" />
+
+        </LinearLayout>
+
 
         <ListView
             android:id="@+id/your_groups"
@@ -32,11 +45,10 @@
             android:scrollbars="vertical" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:layout_marginTop="30dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/groups_you_belong"
-            android:textAlignment="center" />
+            android:text="@string/groups_you_belong" />
 
         <ListView
             android:id="@+id/groups_you_belong"

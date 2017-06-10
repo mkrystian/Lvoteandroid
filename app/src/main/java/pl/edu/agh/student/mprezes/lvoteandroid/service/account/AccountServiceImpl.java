@@ -10,7 +10,6 @@ import pl.edu.agh.student.mprezes.lvoteandroid.model.converter.AccountConverterD
 import pl.edu.agh.student.mprezes.lvoteandroid.model.converter.ConverterDTO;
 import pl.edu.agh.student.mprezes.lvoteandroid.service.AbstractService;
 import pl.edu.agh.student.mprezes.lvoteandroid.service.ContextProvider;
-import pl.edu.agh.student.mprezes.lvoteandroid.service.usergroup.UserGroupServiceImpl;
 
 /**
  * @author Krystian Majewski
@@ -24,9 +23,6 @@ public class AccountServiceImpl extends AbstractService implements AccountServic
 
     @Override
     public Account getAccount() {
-
-        new UserGroupServiceImpl().getUserGroups();
-
         return accountConverter.convert(accountClientService.getAccount(ContextProvider.getHeadersMap()));
     }
 

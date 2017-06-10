@@ -230,7 +230,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
-    public class UserLoginTask extends AsyncTask<Void, Void, AuthenticationResult> {
+    private class UserLoginTask extends AsyncTask<Void, Void, AuthenticationResult> {
 
         private final String mUsername;
         private final String mPassword;

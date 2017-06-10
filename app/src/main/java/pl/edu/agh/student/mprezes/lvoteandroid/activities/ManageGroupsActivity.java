@@ -1,13 +1,21 @@
 package pl.edu.agh.student.mprezes.lvoteandroid.activities;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ListView;
+
+import java.util.List;
 
 import pl.edu.agh.student.mprezes.lvoteandroid.R;
+import pl.edu.agh.student.mprezes.lvoteandroid.activities.listview.YourGroupsListAdapter;
+import pl.edu.agh.student.mprezes.lvoteandroid.model.UserGroup;
+import pl.edu.agh.student.mprezes.lvoteandroid.service.usergroup.UserGroupService;
+import pl.edu.agh.student.mprezes.lvoteandroid.service.usergroup.UserGroupServiceImpl;
 
 public class ManageGroupsActivity extends AppCompatActivity {
 
@@ -27,6 +35,29 @@ public class ManageGroupsActivity extends AppCompatActivity {
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        new GetUserGroups().execute((Void) null);
+    }
+
+    private void createYourGroupsList(List<UserGroup> userGroups) {
+        ListView yourGroups = (ListView) findViewById(R.id.your_groups);
+        yourGroups.setAdapter(new YourGroupsListAdapter(this, R.layout.your_groups, userGroups));
+    }
+
+
+    private class GetUserGroups extends AsyncTask<Void, Void, List<UserGroup>> {
+
+
+        @Override
+        protected List<UserGroup> doInBackground(Void... params) {
+            UserGroupService userGroupService = new UserGroupServiceImpl();
+            return userGroupService.getUserGroups();
+        }
+
+        @Override
+        protected void onPostExecute(final List<UserGroup> userGroups) {
+            createYourGroupsList(userGroups);
+        }
     }
 
 }
