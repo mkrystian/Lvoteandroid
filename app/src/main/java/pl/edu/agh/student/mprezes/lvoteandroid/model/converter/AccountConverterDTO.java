@@ -1,14 +1,14 @@
-package pl.edu.agh.student.mprezes.lvoteandroid.model;
+package pl.edu.agh.student.mprezes.lvoteandroid.model.converter;
 
 import pl.edu.agh.student.mprezes.lvoteandroid.client.dto.AccountDTO;
-import pl.edu.agh.student.mprezes.lvoteandroid.model.converter.ConverterDTO;
+import pl.edu.agh.student.mprezes.lvoteandroid.model.Account;
 
 /**
  * @author Krystian Majewski
  * @since 30.05.2017
  */
 
-public class AccountConverterDTO implements ConverterDTO<Account, AccountDTO> {
+public class AccountConverterDTO extends ConverterDTO<Account, AccountDTO> {
     @Override
     public Account convert(AccountDTO accountDTO) {
         Account result = new Account();

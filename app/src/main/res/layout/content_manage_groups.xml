@@ -8,4 +8,42 @@
     tools:context="pl.edu.agh.student.mprezes.lvoteandroid.activities.ManageGroupsActivity"
     tools:showIn="@layout/activity_manage_groups">
 
+
+    <LinearLayout
+        android:layout_width="344dp"
+        android:layout_height="495dp"
+        android:orientation="vertical"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteY="8dp">
+
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/your_groups"
+            android:textAlignment="center" />
+
+        <ListView
+            android:id="@+id/your_groups"
+            android:layout_width="match_parent"
+            android:layout_height="218dp"
+            android:scrollbars="vertical" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/groups_you_belong"
+            android:textAlignment="center" />
+
+        <ListView
+            android:id="@+id/groups_you_belong"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical" />
+
+    </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>
