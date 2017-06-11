@@ -13,4 +13,6 @@ public interface UserGroupService {
 
     List<UserGroup> getUserGroups();
 
+    List<UserGroup> getGroupsUserBelong();
+
 }

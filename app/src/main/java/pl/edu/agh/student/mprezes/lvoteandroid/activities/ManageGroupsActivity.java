@@ -12,6 +12,7 @@ import android.widget.ListView;
 import java.util.List;
 
 import pl.edu.agh.student.mprezes.lvoteandroid.R;
+import pl.edu.agh.student.mprezes.lvoteandroid.activities.listview.GroupsBelongsListAdapter;
 import pl.edu.agh.student.mprezes.lvoteandroid.activities.listview.YourGroupsListAdapter;
 import pl.edu.agh.student.mprezes.lvoteandroid.model.UserGroup;
 import pl.edu.agh.student.mprezes.lvoteandroid.service.usergroup.UserGroupService;
@@ -36,7 +37,8 @@ public class ManageGroupsActivity extends AppCompatActivity {
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        new GetUserGroups().execute((Void) null);
+        new GetUserGroups().execute();
+        new GetGroupsUserBelongs().execute();
     }
 
     private void createYourGroupsList(List<UserGroup> userGroups) {
@@ -44,9 +46,13 @@ public class ManageGroupsActivity extends AppCompatActivity {
         yourGroups.setAdapter(new YourGroupsListAdapter(this, R.layout.your_groups, userGroups));
     }
 
+    private void createGroupsUserBelongs(List<UserGroup> groupsUserBelongs) {
+        ListView listView = (ListView) findViewById(R.id.groups_you_belong);
+        listView.setAdapter(new GroupsBelongsListAdapter(this, R.layout.your_groups, groupsUserBelongs));
+    }
+
 
     private class GetUserGroups extends AsyncTask<Void, Void, List<UserGroup>> {
-
 
         @Override
         protected List<UserGroup> doInBackground(Void... params) {
@@ -57,6 +63,20 @@ public class ManageGroupsActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(final List<UserGroup> userGroups) {
             createYourGroupsList(userGroups);
+        }
+    }
+
+    private class GetGroupsUserBelongs extends AsyncTask<Void, Void, List<UserGroup>> {
+
+        @Override
+        protected List<UserGroup> doInBackground(Void... params) {
+            UserGroupService userGroupService = new UserGroupServiceImpl();
+            return userGroupService.getGroupsUserBelong();
+        }
+
+        @Override
+        protected void onPostExecute(final List<UserGroup> userGroups) {
+            createGroupsUserBelongs(userGroups);
         }
     }
 

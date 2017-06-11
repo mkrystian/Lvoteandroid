@@ -19,13 +19,13 @@ import pl.edu.agh.student.mprezes.lvoteandroid.model.UserGroup;
  * @since 10.06.2017
  */
 
-public class YourGroupsListAdapter extends ArrayAdapter<UserGroup> {
+public class GroupsBelongsListAdapter extends ArrayAdapter<UserGroup> {
 
     private final Context context;
     private final List<UserGroup> userGroups;
     private final int layoutRes;
 
-    public YourGroupsListAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<UserGroup> objects) {
+    public GroupsBelongsListAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<UserGroup> objects) {
         super(context, resource, objects);
 
         this.context = context;
