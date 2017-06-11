@@ -14,6 +14,9 @@ import pl.edu.agh.student.mprezes.lvoteandroid.client.dto.UserGroupDTO;
 
 public interface UserGroupClientService extends ClientService {
 
-    @RequestLine("GET /user-groups")
-    List<UserGroupDTO> getUserGroups(@HeaderMap Map<String, ?> headerMap);
+    @RequestLine("GET /user-groups-owned")
+    List<UserGroupDTO> getUserGroupsOwned(@HeaderMap Map<String, ?> headerMap);
+
+    @RequestLine("GET /user-groups-belongs")
+    List<UserGroupDTO> getUserGroupsUserBelongsTo(@HeaderMap Map<String, ?> headerMap);
 }

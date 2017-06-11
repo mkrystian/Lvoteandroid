@@ -16,8 +16,8 @@ public class VotingDTO implements Serializable {
 
     private long id;
     private String name;
-    private String startDateTime;
-    private String endDateTime;
+    private String startDate;
+    private String endDate;
 
     public long getId() {
         return id;
@@ -35,20 +35,20 @@ public class VotingDTO implements Serializable {
         this.name = name;
     }
 
-    public String getStartDateTime() {
-        return startDateTime;
+    public String getStartDate() {
+        return startDate;
     }
 
-    public void setStartDateTime(String startDateTime) {
-        this.startDateTime = startDateTime;
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
     }
 
-    public String getEndDateTime() {
-        return endDateTime;
+    public String getEndDate() {
+        return endDate;
     }
 
-    public void setEndDateTime(String endDateTime) {
-        this.endDateTime = endDateTime;
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
     }
 
     @Override

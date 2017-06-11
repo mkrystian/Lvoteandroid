@@ -1,6 +1,6 @@
 package pl.edu.agh.student.mprezes.lvoteandroid.model.converter;
 
-import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.LocalDate;
 
 import pl.edu.agh.student.mprezes.lvoteandroid.client.dto.VotingDTO;
 import pl.edu.agh.student.mprezes.lvoteandroid.model.voting.Voting;
@@ -17,8 +17,8 @@ public class VotingConverterDTO extends ConverterDTO<Voting, VotingDTO> {
 
         result.setId(dto.getId());
         result.setName(dto.getName());
-        result.setStart(LocalDateTime.parse(dto.getStartDateTime()));
-        result.setEnd(LocalDateTime.parse(dto.getEndDateTime()));
+        result.setStart(LocalDate.parse(dto.getStartDate()));
+        result.setEnd(LocalDate.parse(dto.getEndDate()));
 
         return result;
     }
