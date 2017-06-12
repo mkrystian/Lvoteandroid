@@ -38,4 +38,6 @@
     <string name="info">Info</string>
     <string name="vote">Vote</string>
     <string name="remove">Remove</string>
+    <string name="title_activity_vote">VoteActivity</string>
+    <string name="title">Title:</string>
 </resources>

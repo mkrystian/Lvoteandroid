@@ -39,6 +39,10 @@
         <activity
             android:name=".activities.VotingsActivity"
             android:label="@string/title_activity_votings"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.VoteActivity"
+            android:label="@string/title_activity_vote"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
