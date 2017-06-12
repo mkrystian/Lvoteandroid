@@ -32,4 +32,10 @@
     <string name="delete">Delete</string>
     <string name="users">Users</string>
     <string name="add_group">Add Group</string>
+    <string name="title_activity_votings">VotingsActivity</string>
+    <string name="available_votings">Available Votings:</string>
+    <string name="your_votings">Your Votings:</string>
+    <string name="info">Info</string>
+    <string name="vote">Vote</string>
+    <string name="remove">Remove</string>
 </resources>

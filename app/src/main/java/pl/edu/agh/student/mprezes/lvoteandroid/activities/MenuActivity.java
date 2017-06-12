@@ -137,7 +137,7 @@ public class MenuActivity extends AppCompatActivity
         availableVotingsButton.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MenuActivity.this, AvailableVotingsActivity.class));
+                startActivity(new Intent(MenuActivity.this, VotingsActivity.class));
             }
         });
         createVotingButton.setOnClickListener(new Button.OnClickListener() {

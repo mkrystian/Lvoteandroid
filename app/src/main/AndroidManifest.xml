@@ -28,15 +28,6 @@
             android:label="@string/title_activity_menu"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.AvailableVotingsActivity"
-            android:label="@string/title_activity_available_votings"
-            android:parentActivityName=".activities.MenuActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="pl.edu.agh.student.mprezes.lvoteandroid.activities.MenuActivity" />
-        </activity>
-        <activity
             android:name=".activities.ManageGroupsActivity"
             android:label="@string/title_activity_manage_groups"
             android:parentActivityName=".activities.MenuActivity"
@@ -45,6 +36,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="pl.edu.agh.student.mprezes.lvoteandroid.activities.MenuActivity" />
         </activity>
+        <activity
+            android:name=".activities.VotingsActivity"
+            android:label="@string/title_activity_votings"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

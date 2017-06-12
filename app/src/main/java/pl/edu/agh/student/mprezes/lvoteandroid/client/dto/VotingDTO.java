@@ -4,6 +4,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import java.io.Serializable;
+import java.util.Set;
 
 /**
  * @author Krystian Majewski
@@ -18,6 +19,9 @@ public class VotingDTO implements Serializable {
     private String name;
     private String startDate;
     private String endDate;
+    private VotingContentDTO content;
+    private Set<AccountDTO> alreadyVoteds;
+    private Set<VoteDTO> votes;
 
     public long getId() {
         return id;
@@ -49,6 +53,30 @@ public class VotingDTO implements Serializable {
 
     public void setEndDate(String endDate) {
         this.endDate = endDate;
+    }
+
+    public VotingContentDTO getContent() {
+        return content;
+    }
+
+    public void setContent(VotingContentDTO content) {
+        this.content = content;
+    }
+
+    public Set<AccountDTO> getAlreadyVoteds() {
+        return alreadyVoteds;
+    }
+
+    public void setAlreadyVoteds(Set<AccountDTO> alreadyVoteds) {
+        this.alreadyVoteds = alreadyVoteds;
+    }
+
+    public Set<VoteDTO> getVotes() {
+        return votes;
+    }
+
+    public void setVotes(Set<VoteDTO> votes) {
+        this.votes = votes;
     }
 
     @Override

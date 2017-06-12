@@ -18,5 +18,5 @@ public interface VotingClientService extends ClientService {
     List<VotingDTO> getAllUserVotings(@HeaderMap Map<String, ?> headerMap);
 
     @RequestLine("GET /votings-available")
-    List<VotingDTO> getAllAvaiableVotings(@HeaderMap Map<String, ?> headerMap);
+    List<VotingDTO> getAvaialableVotings(@HeaderMap Map<String, ?> headerMap);
 }

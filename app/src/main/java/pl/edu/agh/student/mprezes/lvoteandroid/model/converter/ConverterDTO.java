@@ -1,7 +1,9 @@
 package pl.edu.agh.student.mprezes.lvoteandroid.model.converter;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Krystian Majewski
@@ -20,6 +22,20 @@ public abstract class ConverterDTO<T, D> {
         }
 
         for (D dto : dtoList) {
+            result.add(convert(dto));
+        }
+
+        return result;
+    }
+
+    public Set<T> convert(Set<D> dtoSet) {
+        Set<T> result = new HashSet<>();
+
+        if (dtoSet == null) {
+            return result;
+        }
+
+        for (D dto : dtoSet) {
             result.add(convert(dto));
         }
 

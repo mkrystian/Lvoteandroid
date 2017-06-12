@@ -1,10 +1,12 @@
 package pl.edu.agh.student.mprezes.lvoteandroid.model.voting;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.threeten.bp.LocalDate;
 
 import java.io.Serializable;
+import java.util.Set;
+
+import pl.edu.agh.student.mprezes.lvoteandroid.model.Account;
 
 /**
  * @author Krystian Majewski
@@ -19,6 +21,9 @@ public class Voting implements Serializable {
     private String name;
     private LocalDate start;
     private LocalDate end;
+    private VotingContent votingContent;
+    private Set<Account> alreadyVoted;
+    private Set<Vote> votes;
 
     public Long getId() {
         return id;
@@ -52,33 +57,40 @@ public class Voting implements Serializable {
         this.end = end;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Voting voting = (Voting) o;
-
-        return new EqualsBuilder()
-                .append(id, voting.id)
-                .isEquals();
+    public VotingContent getVotingContent() {
+        return votingContent;
     }
 
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder(17, 37)
-                .append(id)
-                .toHashCode();
+    public void setVotingContent(VotingContent votingContent) {
+        this.votingContent = votingContent;
+    }
+
+    public Set<Account> getAlreadyVoted() {
+        return alreadyVoted;
+    }
+
+    public void setAlreadyVoted(Set<Account> alreadyVoted) {
+        this.alreadyVoted = alreadyVoted;
+    }
+
+    public Set<Vote> getVotes() {
+        return votes;
+    }
+
+    public void setVotings(Set<Vote> votes) {
+        this.votes = votes;
     }
 
     @Override
     public String toString() {
-        return "Voting{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", start=" + start +
-                ", end=" + end +
-                '}';
+        return new ToStringBuilder(this)
+                .append("id", id)
+                .append("name", name)
+                .append("start", start)
+                .append("end", end)
+                .append("votingContent", votingContent)
+                .append("alreadyVoted", alreadyVoted)
+                .append("votes", votes)
+                .toString();
     }
 }
