@@ -1,5 +1,6 @@
 package pl.edu.agh.student.mprezes.lvoteandroid.activities;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -15,11 +16,15 @@ import java.util.ArrayList;
 import pl.edu.agh.student.mprezes.lvoteandroid.R;
 import pl.edu.agh.student.mprezes.lvoteandroid.activities.listview.RadioButtonsListAdapter;
 import pl.edu.agh.student.mprezes.lvoteandroid.model.voting.Voting;
+import pl.edu.agh.student.mprezes.lvoteandroid.model.voting.VotingAnswer;
+import pl.edu.agh.student.mprezes.lvoteandroid.service.voting.VoteService;
+import pl.edu.agh.student.mprezes.lvoteandroid.service.voting.VoteServiceImpl;
 
 public class VoteActivity extends AppCompatActivity {
 
     private Voting voting;
     private RadioButtonsListAdapter radioButtonsListAdapter;
+    private VoteTask voteTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,15 +65,47 @@ public class VoteActivity extends AppCompatActivity {
         TextView errorText = (TextView) findViewById(R.id.vote_error_text);
         if (!radioButtonsListAdapter.isAnySelected()) {
             errorText.setVisibility(View.VISIBLE);
-        } else {
-            errorText.setVisibility(View.GONE);
+            return;
         }
+
+        errorText.setVisibility(View.INVISIBLE);
+
+        if (voteTask == null) {
+            voteTask = new VoteTask(radioButtonsListAdapter.getSelected());
+            voteTask.execute();
+        }
+
     }
 
     private void createVotingAnswersList() {
         ListView answerList = (ListView) findViewById(R.id.voting_answers);
         radioButtonsListAdapter = new RadioButtonsListAdapter(this, R.layout.answers_list, new ArrayList<>(voting.getVotingContent().getAnswers()));
         answerList.setAdapter(radioButtonsListAdapter);
+    }
+
+    private class VoteTask extends AsyncTask<Void, Void, Boolean> {
+
+        private VotingAnswer answer;
+
+        private VoteTask(VotingAnswer answer) {
+            this.answer = answer;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            VoteService service = new VoteServiceImpl();
+            return service.vote(voting, answer);
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            voteTask = null;
+        }
+
+        @Override
+        protected void onCancelled() {
+            voteTask = null;
+        }
     }
 
 }
