@@ -5,7 +5,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
 /**
  * @author Krystian Majewski
@@ -18,7 +18,7 @@ public class VotingContentDTO implements Serializable {
 
     private long id;
     private String question;
-    private List<String> answers;
+    private Set<VotingAnswerDTO> answers;
 
     public long getId() {
         return id;
@@ -36,11 +36,11 @@ public class VotingContentDTO implements Serializable {
         this.question = question;
     }
 
-    public List<String> getAnswers() {
+    public Set<VotingAnswerDTO> getAnswers() {
         return answers;
     }
 
-    public void setAnswers(List<String> answers) {
+    public void setAnswers(Set<VotingAnswerDTO> answers) {
         this.answers = answers;
     }
 

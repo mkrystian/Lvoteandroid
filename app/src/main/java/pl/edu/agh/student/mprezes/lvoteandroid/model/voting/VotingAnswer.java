@@ -5,20 +5,18 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.io.Serializable;
-import java.util.Set;
 
 /**
  * @author Krystian Majewski
- * @since 12.06.2017
+ * @since 13.06.2017
  */
 
-public class VotingContent implements Serializable {
+public class VotingAnswer implements Serializable {
 
-    private static final long serialVersionUID = 954010460944527179L;
+    private static final long serialVersionUID = 4573560171370042502L;
 
     private Long id;
-    private String question;
-    private Set<VotingAnswer> answers;
+    private String answer;
 
     public Long getId() {
         return id;
@@ -28,20 +26,12 @@ public class VotingContent implements Serializable {
         this.id = id;
     }
 
-    public String getQuestion() {
-        return question;
+    public String getAnswer() {
+        return answer;
     }
 
-    public void setQuestion(String question) {
-        this.question = question;
-    }
-
-    public Set<VotingAnswer> getAnswers() {
-        return answers;
-    }
-
-    public void setAnswers(Set<VotingAnswer> answers) {
-        this.answers = answers;
+    public void setAnswer(String answer) {
+        this.answer = answer;
     }
 
     @Override
@@ -50,7 +40,7 @@ public class VotingContent implements Serializable {
 
         if (o == null || getClass() != o.getClass()) return false;
 
-        VotingContent that = (VotingContent) o;
+        VotingAnswer that = (VotingAnswer) o;
 
         return new EqualsBuilder()
                 .append(id, that.id)
@@ -68,8 +58,7 @@ public class VotingContent implements Serializable {
     public String toString() {
         return new ToStringBuilder(this)
                 .append("id", id)
-                .append("question", question)
-                .append("answers", answers)
+                .append("answer", answer)
                 .toString();
     }
 }

@@ -40,4 +40,5 @@
     <string name="remove">Remove</string>
     <string name="title_activity_vote">VoteActivity</string>
     <string name="title">Title:</string>
+    <string name="error_no_answer">No answer selected</string>
 </resources>

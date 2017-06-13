@@ -40,7 +40,7 @@ public class AvailableVotingsListAdapter extends ArrayAdapter<Voting> {
     @Override
     public View getView(int position, View convertView, @NonNull ViewGroup parent) {
 
-        Voting voting = getItem(position);
+        final Voting voting = getItem(position);
 
         final View result;
 
@@ -57,7 +57,7 @@ public class AvailableVotingsListAdapter extends ArrayAdapter<Voting> {
         voteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startVoteWindow();
+                startVoteWindow(voting);
             }
         });
         groupName.setText(voting != null ? voting.getName() : null);
@@ -65,10 +65,10 @@ public class AvailableVotingsListAdapter extends ArrayAdapter<Voting> {
         return result;
     }
 
-    private void startVoteWindow() {
+    private void startVoteWindow(Voting voting) {
         Intent intent = new Intent(context, VoteActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putString("voting_title", "Some title");
+        bundle.putSerializable("content", voting);
         intent.putExtras(bundle);
 
         context.startActivity(intent);
