@@ -12,10 +12,13 @@ import java.io.Serializable;
  */
 
 public class Vote implements Serializable {
+
     private static final long serialVersionUID = -3584235055550119772L;
 
     private Long id;
-    private Integer answer;
+    private Long votingId;
+    private Long answerId;
+    private Long randomNumber;
 
     public Long getId() {
         return id;
@@ -25,12 +28,28 @@ public class Vote implements Serializable {
         this.id = id;
     }
 
-    public Integer getAnswer() {
-        return answer;
+    public Long getVotingId() {
+        return votingId;
     }
 
-    public void setAnswer(Integer answer) {
-        this.answer = answer;
+    public void setVotingId(Long votingId) {
+        this.votingId = votingId;
+    }
+
+    public Long getAnswerId() {
+        return answerId;
+    }
+
+    public void setAnswerId(Long answerId) {
+        this.answerId = answerId;
+    }
+
+    public Long getRandomNumber() {
+        return randomNumber;
+    }
+
+    public void setRandomNumber(Long randomNumber) {
+        this.randomNumber = randomNumber;
     }
 
     @Override
@@ -57,7 +76,9 @@ public class Vote implements Serializable {
     public String toString() {
         return new ToStringBuilder(this)
                 .append("id", id)
-                .append("answer", answer)
+                .append("votingId", votingId)
+                .append("answerId", answerId)
+                .append("randomNumber", randomNumber)
                 .toString();
     }
 }
