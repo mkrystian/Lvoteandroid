@@ -2,7 +2,6 @@ package pl.edu.agh.student.mprezes.lvoteandroid.client.dto;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.io.Serializable;
 
@@ -15,23 +14,41 @@ public class VoteDTO implements Serializable {
 
     private static final long serialVersionUID = 1845753722105648421L;
 
-    private long id;
-    private int answer;
+    private Long id;
+    private long votingId;
+    private long answerId;
+    private long randomNumber;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public int getAnswer() {
-        return answer;
+    public long getVotingId() {
+        return votingId;
     }
 
-    public void setAnswer(int answer) {
-        this.answer = answer;
+    public void setVotingId(long votingId) {
+        this.votingId = votingId;
+    }
+
+    public long getAnswerId() {
+        return answerId;
+    }
+
+    public void setAnswerId(long answerId) {
+        this.answerId = answerId;
+    }
+
+    public long getRandomNumber() {
+        return randomNumber;
+    }
+
+    public void setRandomNumber(long randomNumber) {
+        this.randomNumber = randomNumber;
     }
 
     @Override
@@ -52,13 +69,5 @@ public class VoteDTO implements Serializable {
         return new HashCodeBuilder(17, 37)
                 .append(id)
                 .toHashCode();
-    }
-
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this)
-                .append("id", id)
-                .append("answer", answer)
-                .toString();
     }
 }

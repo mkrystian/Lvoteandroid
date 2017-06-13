@@ -79,7 +79,7 @@ public class RadioButtonsListAdapter extends ArrayAdapter<VotingAnswer> {
 
     public VotingAnswer getSelected() {
         for (Map.Entry<RadioButton, VotingAnswer> entry : buttonsMap.entrySet()) {
-            if (!entry.getKey().isChecked()) {
+            if (entry.getKey().isChecked()) {
                 return entry.getValue();
             }
         }

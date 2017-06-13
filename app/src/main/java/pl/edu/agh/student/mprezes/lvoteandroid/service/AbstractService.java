@@ -14,7 +14,7 @@ import pl.edu.agh.student.mprezes.lvoteandroid.client.service.ClientService;
 public abstract class AbstractService {
 
     //private final static String API_URL = "http://lvote.pl:8080/api";
-    private final static String API_URL = "http://192.168.1.103:8080/api";
+    private final static String API_URL = "http://192.168.1.126:8080/api";
 
     private Feign.Builder feignBuilder() {
         return Feign

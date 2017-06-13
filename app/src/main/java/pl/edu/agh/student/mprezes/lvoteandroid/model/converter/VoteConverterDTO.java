@@ -14,7 +14,9 @@ class VoteConverterDTO extends ConverterDTO<Vote, VoteDTO> {
         Vote result = new Vote();
 
         result.setId(dto.getId());
-        result.setAnswer(dto.getAnswer());
+        result.setAnswerId(dto.getAnswerId());
+        result.setVotingId(dto.getVotingId());
+        result.setRandomNumber(dto.getRandomNumber());
 
         return result;
     }

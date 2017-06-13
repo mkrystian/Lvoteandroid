@@ -23,7 +23,6 @@ public class Voting implements Serializable {
     private LocalDate end;
     private VotingContent votingContent;
     private Set<Account> alreadyVoted;
-    private Set<Vote> votes;
 
     public Long getId() {
         return id;
@@ -73,14 +72,6 @@ public class Voting implements Serializable {
         this.alreadyVoted = alreadyVoted;
     }
 
-    public Set<Vote> getVotes() {
-        return votes;
-    }
-
-    public void setVotings(Set<Vote> votes) {
-        this.votes = votes;
-    }
-
     @Override
     public String toString() {
         return new ToStringBuilder(this)
@@ -90,7 +81,6 @@ public class Voting implements Serializable {
                 .append("end", end)
                 .append("votingContent", votingContent)
                 .append("alreadyVoted", alreadyVoted)
-                .append("votes", votes)
                 .toString();
     }
 }

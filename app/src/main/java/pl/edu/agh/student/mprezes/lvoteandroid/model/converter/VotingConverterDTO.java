@@ -3,11 +3,9 @@ package pl.edu.agh.student.mprezes.lvoteandroid.model.converter;
 import org.threeten.bp.LocalDate;
 
 import pl.edu.agh.student.mprezes.lvoteandroid.client.dto.AccountDTO;
-import pl.edu.agh.student.mprezes.lvoteandroid.client.dto.VoteDTO;
 import pl.edu.agh.student.mprezes.lvoteandroid.client.dto.VotingContentDTO;
 import pl.edu.agh.student.mprezes.lvoteandroid.client.dto.VotingDTO;
 import pl.edu.agh.student.mprezes.lvoteandroid.model.Account;
-import pl.edu.agh.student.mprezes.lvoteandroid.model.voting.Vote;
 import pl.edu.agh.student.mprezes.lvoteandroid.model.voting.Voting;
 import pl.edu.agh.student.mprezes.lvoteandroid.model.voting.VotingContent;
 
@@ -20,7 +18,6 @@ public class VotingConverterDTO extends ConverterDTO<Voting, VotingDTO> {
 
     private final ConverterDTO<Account, AccountDTO> accountConverterDTO = new AccountConverterDTO();
     private final ConverterDTO<VotingContent, VotingContentDTO> votingContentConverterDTO = new VotingContentConverterDTO();
-    private final ConverterDTO<Vote, VoteDTO> voteConverterDTO = new VoteConverterDTO();
 
     @Override
     public Voting convert(VotingDTO dto) {
@@ -32,7 +29,6 @@ public class VotingConverterDTO extends ConverterDTO<Voting, VotingDTO> {
         result.setEnd(LocalDate.parse(dto.getEndDate()));
         result.setAlreadyVoted(accountConverterDTO.convert(dto.getAlreadyVoteds()));
         result.setVotingContent(votingContentConverterDTO.convert(dto.getContent()));
-        result.setVotings(voteConverterDTO.convert(dto.getVotes()));
 
         return result;
     }
