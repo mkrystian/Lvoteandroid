@@ -92,17 +92,15 @@ public class RSABlindSignaturesUtils {
      * Returns unblinded signature with original message
      *
      * @param blindedSignature   RSABlindedSignature
-     * @param originalMessage    String representation of original value
      * @param blindingParameters RSABlindingParameters
      * @return Object containing unblinded signature and original message
      */
-    public static RSAUnblindedSignature unblindSignature(RSABlindedSignature blindedSignature, String originalMessage, RSABlindingParameters blindingParameters) {
+    public static RSAUnblindedSignature unblindSignature(RSABlindedSignature blindedSignature, RSABlindingParameters blindingParameters) {
         RSAUnblindedSignature result = new RSAUnblindedSignature();
 
         RSABlindingEngine blindingEngine = new RSABlindingEngine();
         blindingEngine.init(false, blindingParameters);
 
-        result.setOriginalMessage(originalMessage);
         result.content = blindingEngine.processBlock(blindedSignature.content, 0, blindedSignature.content.length);
 
         return result;
@@ -130,13 +128,15 @@ public class RSABlindSignaturesUtils {
      * Verify if passed message is compatible with signature using signer public key
      *
      * @param unblindedSignature UnblindedSignature
+     * @param originalMessage    String representation of original message
      * @param publicKey          singer RSA public key
      * @return true if verification correct, false otherwise
      */
-    public static boolean verifySignature(RSAUnblindedSignature unblindedSignature, AsymmetricKeyParameter publicKey) {
+    public static boolean verifySignature(RSAUnblindedSignature unblindedSignature, String originalMessage, AsymmetricKeyParameter publicKey) {
+        byte[] originalMessageBytes = stringToBytes(originalMessage);
         PSSSigner signer = new PSSSigner(new RSAEngine(), new SHA1Digest(), 20);
         signer.init(false, publicKey);
-        signer.update(unblindedSignature.originalMessage, 0, unblindedSignature.originalMessage.length);
+        signer.update(originalMessageBytes, 0, originalMessageBytes.length);
 
         return signer.verifySignature(unblindedSignature.content);
     }
@@ -230,7 +230,6 @@ public class RSABlindSignaturesUtils {
         private static final long serialVersionUID = 6336896071726519590L;
 
         private byte[] content;
-        private byte[] originalMessage;
 
         public byte[] getContent() {
             return content;
@@ -238,14 +237,6 @@ public class RSABlindSignaturesUtils {
 
         public void setContent(byte[] content) {
             this.content = content;
-        }
-
-        public String getOriginalMessage() {
-            return bytesToString(originalMessage);
-        }
-
-        public void setOriginalMessage(String originalMessage) {
-            this.originalMessage = stringToBytes(originalMessage);
         }
 
         @Override
@@ -258,7 +249,6 @@ public class RSABlindSignaturesUtils {
 
             return new EqualsBuilder()
                     .append(content, that.content)
-                    .append(originalMessage, that.originalMessage)
                     .isEquals();
         }
 
@@ -266,7 +256,6 @@ public class RSABlindSignaturesUtils {
         public int hashCode() {
             return new HashCodeBuilder(17, 37)
                     .append(content)
-                    .append(originalMessage)
                     .toHashCode();
         }
     }
