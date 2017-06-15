@@ -1,10 +1,14 @@
 package pl.edu.agh.student.mprezes.lvoteandroid.service.voting;
 
-import org.bouncycastle.crypto.AsymmetricCipherKeyPair;
 import org.bouncycastle.crypto.CryptoException;
 import org.bouncycastle.crypto.params.RSABlindingParameters;
+import org.bouncycastle.crypto.params.RSAKeyParameters;
 
+import pl.edu.agh.student.mprezes.lvoteandroid.client.dto.RSAKeyParametersDTO;
+import pl.edu.agh.student.mprezes.lvoteandroid.client.service.PublicKeyClientService;
 import pl.edu.agh.student.mprezes.lvoteandroid.client.service.VoteClientService;
+import pl.edu.agh.student.mprezes.lvoteandroid.model.converter.ConverterDTO;
+import pl.edu.agh.student.mprezes.lvoteandroid.model.converter.RSAKeyParametersConverterDTO;
 import pl.edu.agh.student.mprezes.lvoteandroid.model.utils.RSABlindSignaturesUtils.RSABlindedMessage;
 import pl.edu.agh.student.mprezes.lvoteandroid.model.voting.BlindedVote;
 import pl.edu.agh.student.mprezes.lvoteandroid.model.voting.SignedVote;
@@ -16,7 +20,6 @@ import pl.edu.agh.student.mprezes.lvoteandroid.service.AbstractService;
 import pl.edu.agh.student.mprezes.lvoteandroid.service.ContextProvider;
 
 import static pl.edu.agh.student.mprezes.lvoteandroid.model.utils.RSABlindSignaturesUtils.blindMessage;
-import static pl.edu.agh.student.mprezes.lvoteandroid.model.utils.RSABlindSignaturesUtils.generateKeyPair;
 import static pl.edu.agh.student.mprezes.lvoteandroid.model.utils.RSABlindSignaturesUtils.generateRSABlindingParameters;
 import static pl.edu.agh.student.mprezes.lvoteandroid.model.utils.RSABlindSignaturesUtils.unblindSignature;
 
@@ -28,8 +31,9 @@ import static pl.edu.agh.student.mprezes.lvoteandroid.model.utils.RSABlindSignat
 public class VoteServiceImpl extends AbstractService implements VoteService {
 
     private final VoteClientService clientService = getClientService(VoteClientService.class);
-    private final AsymmetricCipherKeyPair keyPair = generateKeyPair();
-    private final RSABlindingParameters rsaBlindingParameters = generateRSABlindingParameters(keyPair.getPublic());
+    private final PublicKeyClientService publicKeyClientService = getClientService(PublicKeyClientService.class);
+    private final ConverterDTO<RSAKeyParameters, RSAKeyParametersDTO> keyParametersConverterDTO = new RSAKeyParametersConverterDTO();
+    private RSABlindingParameters rsaBlindingParameters;
 
     @Override
     public boolean vote(Voting voting, VotingAnswer votingAnswer) {
@@ -50,7 +54,7 @@ public class VoteServiceImpl extends AbstractService implements VoteService {
         String message = vote.getAnswerId().toString();
         RSABlindedMessage blindedMessage = null;
         try {
-            blindedMessage = blindMessage(message, rsaBlindingParameters);
+            blindedMessage = blindMessage(message, getRsaBlindingParameters());
         } catch (CryptoException e) {
             e.printStackTrace();
         }
@@ -66,7 +70,7 @@ public class VoteServiceImpl extends AbstractService implements VoteService {
 
         result.setVotingId(vote.getVotingId());
         result.setAnswerId(vote.getAnswerId());
-        result.setSignature(unblindSignature(signedVote.getBlindedSignature(), rsaBlindingParameters));
+        result.setSignature(unblindSignature(signedVote.getBlindedSignature(), getRsaBlindingParameters()));
 
         return result;
     }
@@ -77,6 +81,18 @@ public class VoteServiceImpl extends AbstractService implements VoteService {
 
     private boolean sendUnblindedVote(UnblindedVote unblindedVote) {
         return clientService.sendUnblindedVote(unblindedVote, ContextProvider.getHeadersMap());
+    }
+
+    private RSAKeyParameters getPublicKey() {
+        return keyParametersConverterDTO.convert(publicKeyClientService.getPublicKey(ContextProvider.getHeadersMap()));
+    }
+
+    private RSABlindingParameters getRsaBlindingParameters() {
+        if (rsaBlindingParameters == null) {
+            rsaBlindingParameters = generateRSABlindingParameters(getPublicKey());
+        }
+
+        return rsaBlindingParameters;
     }
 
 }
