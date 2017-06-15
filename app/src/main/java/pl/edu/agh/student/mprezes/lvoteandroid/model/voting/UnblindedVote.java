@@ -2,8 +2,10 @@ package pl.edu.agh.student.mprezes.lvoteandroid.model.voting;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 
 import pl.edu.agh.student.mprezes.lvoteandroid.model.utils.RSABlindSignaturesUtils.RSAUnblindedSignature;
 
@@ -18,6 +20,7 @@ public class UnblindedVote implements Serializable {
 
     private Long votingId;
     private Long answerId;
+    private BigInteger randomNumber;
     private RSAUnblindedSignature signature;
 
     public Long getVotingId() {
@@ -36,12 +39,24 @@ public class UnblindedVote implements Serializable {
         this.answerId = answerId;
     }
 
+    public BigInteger getRandomNumber() {
+        return randomNumber;
+    }
+
+    public void setRandomNumber(BigInteger randomNumber) {
+        this.randomNumber = randomNumber;
+    }
+
     public RSAUnblindedSignature getSignature() {
         return signature;
     }
 
     public void setSignature(RSAUnblindedSignature signature) {
         this.signature = signature;
+    }
+
+    public String getStringRepresentation() {
+        return String.format("votingId=%s;answerId=%s;randomNumber=%s", votingId, answerId, randomNumber);
     }
 
     @Override
@@ -55,6 +70,7 @@ public class UnblindedVote implements Serializable {
         return new EqualsBuilder()
                 .append(votingId, that.votingId)
                 .append(answerId, that.answerId)
+                .append(randomNumber, that.randomNumber)
                 .append(signature, that.signature)
                 .isEquals();
     }
@@ -64,7 +80,18 @@ public class UnblindedVote implements Serializable {
         return new HashCodeBuilder(17, 37)
                 .append(votingId)
                 .append(answerId)
+                .append(randomNumber)
                 .append(signature)
                 .toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("votingId", votingId)
+                .append("answerId", answerId)
+                .append("randomNumber", randomNumber)
+                .append("signature", signature)
+                .toString();
     }
 }

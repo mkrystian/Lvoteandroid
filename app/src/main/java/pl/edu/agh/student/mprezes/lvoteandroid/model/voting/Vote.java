@@ -5,6 +5,8 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.io.Serializable;
+import java.math.BigInteger;
+import java.util.Random;
 
 /**
  * @author Krystian Majewski
@@ -15,18 +17,12 @@ public class Vote implements Serializable {
 
     private static final long serialVersionUID = -3584235055550119772L;
 
-    private Long id;
     private Long votingId;
     private Long answerId;
-    private Long randomNumber;
-    private String encryptedData;
+    private BigInteger randomNumber;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public Vote() {
+        randomNumber = new BigInteger(256, new Random());
     }
 
     public Long getVotingId() {
@@ -45,20 +41,12 @@ public class Vote implements Serializable {
         this.answerId = answerId;
     }
 
-    public Long getRandomNumber() {
+    public BigInteger getRandomNumber() {
         return randomNumber;
     }
 
-    public void setRandomNumber(Long randomNumber) {
-        this.randomNumber = randomNumber;
-    }
-
-    public String getEncryptedData() {
-        return encryptedData;
-    }
-
-    public void setEncryptedData(String encryptedData) {
-        this.encryptedData = encryptedData;
+    public String getStringRepresentation() {
+        return String.format("votingId=%s;answerId=%s;randomNumber=%s", votingId, answerId, randomNumber);
     }
 
     @Override
@@ -70,25 +58,27 @@ public class Vote implements Serializable {
         Vote vote = (Vote) o;
 
         return new EqualsBuilder()
-                .append(id, vote.id)
+                .append(votingId, vote.votingId)
+                .append(answerId, vote.answerId)
+                .append(randomNumber, vote.randomNumber)
                 .isEquals();
     }
 
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
-                .append(id)
+                .append(votingId)
+                .append(answerId)
+                .append(randomNumber)
                 .toHashCode();
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .append("id", id)
                 .append("votingId", votingId)
                 .append("answerId", answerId)
                 .append("randomNumber", randomNumber)
-                .append("encryptedData", encryptedData)
                 .toString();
     }
 }

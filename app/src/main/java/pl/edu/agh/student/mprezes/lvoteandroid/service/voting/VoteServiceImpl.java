@@ -51,7 +51,7 @@ public class VoteServiceImpl extends AbstractService implements VoteService {
     private BlindedVote blindVote(Vote vote) {
         BlindedVote result = new BlindedVote();
 
-        String message = vote.getAnswerId().toString();
+        String message = vote.getStringRepresentation();
         RSABlindedMessage blindedMessage = null;
         try {
             blindedMessage = blindMessage(message, getRsaBlindingParameters());
@@ -70,6 +70,7 @@ public class VoteServiceImpl extends AbstractService implements VoteService {
 
         result.setVotingId(vote.getVotingId());
         result.setAnswerId(vote.getAnswerId());
+        result.setRandomNumber(vote.getRandomNumber());
         result.setSignature(unblindSignature(signedVote.getBlindedSignature(), getRsaBlindingParameters()));
 
         return result;
@@ -80,11 +81,11 @@ public class VoteServiceImpl extends AbstractService implements VoteService {
     }
 
     private boolean sendUnblindedVote(UnblindedVote unblindedVote) {
-        return clientService.sendUnblindedVote(unblindedVote, ContextProvider.getHeadersMap());
+        return clientService.sendVote(unblindedVote);
     }
 
     private RSAKeyParameters getPublicKey() {
-        return keyParametersConverterDTO.convert(publicKeyClientService.getPublicKey(ContextProvider.getHeadersMap()));
+        return keyParametersConverterDTO.convert(publicKeyClientService.getPublicKey());
     }
 
     private RSABlindingParameters getRsaBlindingParameters() {

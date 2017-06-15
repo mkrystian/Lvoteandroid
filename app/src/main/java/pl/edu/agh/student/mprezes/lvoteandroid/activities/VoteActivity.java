@@ -1,9 +1,11 @@
 package pl.edu.agh.student.mprezes.lvoteandroid.activities;
 
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -77,6 +79,28 @@ public class VoteActivity extends AppCompatActivity {
 
     }
 
+    private void showAnswerAndClose(Boolean result) {
+        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        alertDialog.setTitle(getString(R.string.result_label));
+        if (result) {
+            alertDialog.setMessage(getString(R.string.vote_submitted));
+
+        } else {
+            alertDialog.setMessage(getString(R.string.vote_rejected));
+
+        }
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        setResult(0);
+                        finish();
+                    }
+                });
+        alertDialog.show();
+
+    }
+
     private void createVotingAnswersList() {
         ListView answerList = (ListView) findViewById(R.id.voting_answers);
         radioButtonsListAdapter = new RadioButtonsListAdapter(this, R.layout.answers_list, new ArrayList<>(voting.getVotingContent().getAnswers()));
@@ -100,12 +124,9 @@ public class VoteActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Boolean result) {
             voteTask = null;
+            showAnswerAndClose(result);
         }
 
-        @Override
-        protected void onCancelled() {
-            voteTask = null;
-        }
     }
 
 }

@@ -41,4 +41,7 @@
     <string name="title_activity_vote">VoteActivity</string>
     <string name="title">Title:</string>
     <string name="error_no_answer">No answer selected</string>
+    <string name="result_label">Result:</string>
+    <string name="vote_submitted">Vote submitted</string>
+    <string name="vote_rejected">Vote rejected!</string>
 </resources>

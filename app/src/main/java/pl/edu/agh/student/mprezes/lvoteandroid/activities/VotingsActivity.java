@@ -36,10 +36,20 @@ public class VotingsActivity extends AppCompatActivity {
             }
         });
 
+        loadData();
+    }
+
+    private void loadData() {
         new GetAvailableVotings().execute();
         new GetOwnedVotings().execute();
     }
 
+    @Override
+    public void onRestart() {
+        super.onRestart();
+
+        loadData();
+    }
 
     private void createAvailableVotingsList(List<Voting> votings) {
         ListView listView = (ListView) findViewById(R.id.list_of_available_votings);
