@@ -1,5 +1,7 @@
 package pl.edu.agh.student.mprezes.lvoteandroid.service.voting;
 
+import android.util.LongSparseArray;
+
 import org.bouncycastle.crypto.CryptoException;
 import org.bouncycastle.crypto.params.RSABlindingParameters;
 import org.bouncycastle.crypto.params.RSAKeyParameters;
@@ -33,7 +35,7 @@ public class VoteServiceImpl extends AbstractService implements VoteService {
     private final VoteClientService clientService = getClientService(VoteClientService.class);
     private final PublicKeyClientService publicKeyClientService = getClientService(PublicKeyClientService.class);
     private final ConverterDTO<RSAKeyParameters, RSAKeyParametersDTO> keyParametersConverterDTO = new RSAKeyParametersConverterDTO();
-    private RSABlindingParameters rsaBlindingParameters;
+    private final LongSparseArray<RSABlindingParameters> rsaBlindingMap = new LongSparseArray<>();
 
     @Override
     public boolean vote(Voting voting, VotingAnswer votingAnswer) {
@@ -54,7 +56,7 @@ public class VoteServiceImpl extends AbstractService implements VoteService {
         String message = vote.getStringRepresentation();
         RSABlindedMessage blindedMessage = null;
         try {
-            blindedMessage = blindMessage(message, getRsaBlindingParameters());
+            blindedMessage = blindMessage(message, getRsaBlindingParameters(vote.getVotingId()));
         } catch (CryptoException e) {
             e.printStackTrace();
         }
@@ -71,7 +73,7 @@ public class VoteServiceImpl extends AbstractService implements VoteService {
         result.setVotingId(vote.getVotingId());
         result.setAnswerId(vote.getAnswerId());
         result.setRandomNumber(vote.getRandomNumber());
-        result.setSignature(unblindSignature(signedVote.getBlindedSignature(), getRsaBlindingParameters()));
+        result.setSignature(unblindSignature(signedVote.getBlindedSignature(), getRsaBlindingParameters(vote.getVotingId())));
 
         return result;
     }
@@ -84,16 +86,16 @@ public class VoteServiceImpl extends AbstractService implements VoteService {
         return clientService.sendVote(unblindedVote);
     }
 
-    private RSAKeyParameters getPublicKey() {
-        return keyParametersConverterDTO.convert(publicKeyClientService.getPublicKey());
+    private RSAKeyParameters getPublicKey(Long votingId) {
+        return keyParametersConverterDTO.convert(publicKeyClientService.getPublicKey(votingId));
     }
 
-    private RSABlindingParameters getRsaBlindingParameters() {
-        if (rsaBlindingParameters == null) {
-            rsaBlindingParameters = generateRSABlindingParameters(getPublicKey());
+    private RSABlindingParameters getRsaBlindingParameters(Long votingId) {
+        if (rsaBlindingMap.indexOfKey(votingId) < 0) {
+            rsaBlindingMap.put(votingId, generateRSABlindingParameters(getPublicKey(votingId)));
         }
 
-        return rsaBlindingParameters;
+        return rsaBlindingMap.get(votingId);
     }
 
 }

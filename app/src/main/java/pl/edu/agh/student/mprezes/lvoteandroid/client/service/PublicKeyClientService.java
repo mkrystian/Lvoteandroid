@@ -1,6 +1,7 @@
 package pl.edu.agh.student.mprezes.lvoteandroid.client.service;
 
 import feign.Headers;
+import feign.Param;
 import feign.RequestLine;
 import pl.edu.agh.student.mprezes.lvoteandroid.client.dto.RSAKeyParametersDTO;
 
@@ -10,7 +11,7 @@ import pl.edu.agh.student.mprezes.lvoteandroid.client.dto.RSAKeyParametersDTO;
  */
 public interface PublicKeyClientService extends ClientService {
 
-    @RequestLine("GET /key/public")
+    @RequestLine("GET /key/public/{votingId}")
     @Headers({"Content-Type: application/json", "Accept: application/json"})
-    RSAKeyParametersDTO getPublicKey();
+    RSAKeyParametersDTO getPublicKey(@Param("votingId") Long votingId);
 }
