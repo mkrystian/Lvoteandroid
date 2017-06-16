@@ -51,6 +51,10 @@
         <activity
             android:name=".activities.VoteResultsActivity"
             android:label="@string/title_activity_vote_results"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.WaitingListActivity"
+            android:label="@string/title_activity_waiting_list"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

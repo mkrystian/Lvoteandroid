@@ -60,6 +60,15 @@ public class VoteServiceImpl extends AbstractService implements VoteService {
         return waitingService.addVote(waitingVote);
     }
 
+    @Override
+    public boolean sendWaitingVote(WaitingVote waitingVote, boolean useProxy) {
+        boolean result = sendUnblindedVote(waitingVote.getUnblindedVote(), useProxy);
+
+        waitingVote.setVoteStatues(result ? WaitingVote.VoteStatues.SUBMITED : WaitingVote.VoteStatues.ERROR);
+
+        return result;
+    }
+
     private UnblindedVote getUnblindedVote(Voting voting, VotingAnswer votingAnswer) {
         Vote vote = new Vote();
         vote.setVotingId(voting.getId());

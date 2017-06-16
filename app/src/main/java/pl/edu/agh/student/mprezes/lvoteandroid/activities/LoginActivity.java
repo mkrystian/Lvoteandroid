@@ -13,6 +13,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -31,6 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pl.edu.agh.student.mprezes.lvoteandroid.R;
+import pl.edu.agh.student.mprezes.lvoteandroid.activities.floatingactionbutton.FloatingActionButtonController;
 import pl.edu.agh.student.mprezes.lvoteandroid.model.authentication.AuthenticationResult;
 import pl.edu.agh.student.mprezes.lvoteandroid.service.WaitingServiceImpl;
 import pl.edu.agh.student.mprezes.lvoteandroid.service.authentication.AuthenticationService;
@@ -61,6 +63,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         // Set up the login form.
         mUsernameView = (AutoCompleteTextView) findViewById(R.id.email);
 
+        new FloatingActionButtonController((FloatingActionButton) findViewById(R.id.fab), this).create();
+
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -84,7 +88,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
     }
-
 
 
     /**

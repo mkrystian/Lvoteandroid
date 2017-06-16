@@ -53,7 +53,6 @@ public class WaitingVote implements Serializable {
         return new EqualsBuilder()
                 .append(votingName, that.votingName)
                 .append(unblindedVote, that.unblindedVote)
-                .append(voteStatues, that.voteStatues)
                 .isEquals();
     }
 
@@ -62,7 +61,6 @@ public class WaitingVote implements Serializable {
         return new HashCodeBuilder(17, 37)
                 .append(votingName)
                 .append(unblindedVote)
-                .append(voteStatues)
                 .toHashCode();
     }
 

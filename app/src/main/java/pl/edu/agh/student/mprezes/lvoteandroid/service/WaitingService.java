@@ -1,5 +1,8 @@
 package pl.edu.agh.student.mprezes.lvoteandroid.service;
 
+import java.util.Collection;
+import java.util.Set;
+
 import pl.edu.agh.student.mprezes.lvoteandroid.model.voting.WaitingVote;
 
 /**
@@ -10,4 +13,16 @@ import pl.edu.agh.student.mprezes.lvoteandroid.model.voting.WaitingVote;
 public interface WaitingService {
 
     boolean addVote(WaitingVote waitingVote);
+
+    void updateVotes();
+
+    void removeVotes(Collection<WaitingVote> waitingVotes);
+
+    Set<WaitingVote> getVotes();
+
+    boolean hasNewVotes();
+
+    interface ValueChangeListener {
+        void onValueChange();
+    }
 }

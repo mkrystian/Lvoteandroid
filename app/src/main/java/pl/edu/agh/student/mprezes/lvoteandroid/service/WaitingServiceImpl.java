@@ -13,10 +13,13 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
 import pl.edu.agh.student.mprezes.lvoteandroid.model.voting.WaitingVote;
+import pl.edu.agh.student.mprezes.lvoteandroid.model.voting.WaitingVote.VoteStatues;
 
 import static android.content.Context.MODE_PRIVATE;
 import static android.content.SharedPreferences.Editor;
@@ -43,6 +46,32 @@ public class WaitingServiceImpl extends AbstractService implements WaitingServic
         saveWaitingVotes();
 
         return true;
+    }
+
+    @Override
+    public void updateVotes() {
+        saveWaitingVotes();
+    }
+
+    @Override
+    public void removeVotes(Collection<WaitingVote> waitingVotes) {
+        WaitingServiceImpl.waitingVotes.removeAll(waitingVotes);
+        saveWaitingVotes();
+    }
+
+    @Override
+    public Set<WaitingVote> getVotes() {
+        return Collections.unmodifiableSet(waitingVotes);
+    }
+
+    @Override
+    public boolean hasNewVotes() {
+        for (WaitingVote waitingVote : waitingVotes) {
+            if (waitingVote.getVoteStatues() == VoteStatues.NEW) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private static void readWaitingVotes(SharedPreferences sharedPrefs) {

@@ -52,4 +52,7 @@
     <string name="send_vote">Send vote</string>
     <string name="send_using_proxy_server">Send using proxy server</string>
     <string name="sign_vote_and_add_to_waiting_list">Sign vote and add to waiting list</string>
+    <string name="title_activity_waiting_list">Waiting List</string>
+    <string name="send">Send</string>
+    <string name="no_votings_selected">No votings selected</string>
 </resources>
