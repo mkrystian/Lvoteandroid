@@ -35,7 +35,7 @@
         <ListView
             android:id="@+id/voting_answers_list"
             android:layout_width="match_parent"
-            android:layout_height="350dp" />
+            android:layout_height="330dp" />
 
         <TextView
             android:id="@+id/vote_error_text"
@@ -49,12 +49,33 @@
             android:textStyle="bold"
             android:visibility="invisible" />
 
-        <CheckBox
-            android:id="@+id/use_proxy_checkbox"
+
+        <RadioGroup
+            android:id="@+id/voting_type_radio_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/use_proxy_server_to_send_vote" />
+            android:checkedButton="@+id/send_vote_option">
+
+            <RadioButton
+                android:id="@+id/send_vote_option"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/send_vote" />
+
+            <RadioButton
+                android:id="@+id/use_proxy_option"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/send_using_proxy_server" />
+
+            <RadioButton
+                android:id="@+id/add_to_waiting_list_option"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/sign_vote_and_add_to_waiting_list" />
+
+        </RadioGroup>
 
         <Button
             android:id="@+id/vote_button"

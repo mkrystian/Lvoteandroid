@@ -18,8 +18,11 @@ import pl.edu.agh.student.mprezes.lvoteandroid.model.voting.UnblindedVote;
 import pl.edu.agh.student.mprezes.lvoteandroid.model.voting.Vote;
 import pl.edu.agh.student.mprezes.lvoteandroid.model.voting.Voting;
 import pl.edu.agh.student.mprezes.lvoteandroid.model.voting.VotingAnswer;
+import pl.edu.agh.student.mprezes.lvoteandroid.model.voting.WaitingVote;
 import pl.edu.agh.student.mprezes.lvoteandroid.service.AbstractService;
 import pl.edu.agh.student.mprezes.lvoteandroid.service.ContextProvider;
+import pl.edu.agh.student.mprezes.lvoteandroid.service.WaitingService;
+import pl.edu.agh.student.mprezes.lvoteandroid.service.WaitingServiceImpl;
 
 import static pl.edu.agh.student.mprezes.lvoteandroid.model.utils.RSABlindSignaturesUtils.blindMessage;
 import static pl.edu.agh.student.mprezes.lvoteandroid.model.utils.RSABlindSignaturesUtils.generateRSABlindingParameters;
@@ -33,21 +36,38 @@ import static pl.edu.agh.student.mprezes.lvoteandroid.model.utils.RSABlindSignat
 public class VoteServiceImpl extends AbstractService implements VoteService {
 
     private final VoteClientService clientService = getClientService(VoteClientService.class);
+    private final WaitingService waitingService = new WaitingServiceImpl();
     private final PublicKeyClientService publicKeyClientService = getClientService(PublicKeyClientService.class);
     private final ConverterDTO<RSAKeyParameters, RSAKeyParametersDTO> keyParametersConverterDTO = new RSAKeyParametersConverterDTO();
     private final LongSparseArray<RSABlindingParameters> rsaBlindingMap = new LongSparseArray<>();
 
     @Override
     public boolean vote(Voting voting, VotingAnswer votingAnswer, boolean useProxy) {
+        UnblindedVote unblindedVote = getUnblindedVote(voting, votingAnswer);
+
+        return sendUnblindedVote(unblindedVote, useProxy);
+    }
+
+    @Override
+    public boolean addToWaitingList(Voting voting, VotingAnswer votingAnswer) {
+        UnblindedVote unblindedVote = getUnblindedVote(voting, votingAnswer);
+
+        WaitingVote waitingVote = new WaitingVote();
+        waitingVote.setVotingName(voting.getName());
+        waitingVote.setUnblindedVote(unblindedVote);
+        waitingVote.setVoteStatues(WaitingVote.VoteStatues.NEW);
+
+        return waitingService.addVote(waitingVote);
+    }
+
+    private UnblindedVote getUnblindedVote(Voting voting, VotingAnswer votingAnswer) {
         Vote vote = new Vote();
         vote.setVotingId(voting.getId());
         vote.setAnswerId(votingAnswer.getId());
 
         BlindedVote blindedVote = blindVote(vote);
         SignedVote signedVote = sing(blindedVote);
-        UnblindedVote unblindedVote = unblind(signedVote, vote);
-
-        return sendUnblindedVote(unblindedVote, useProxy);
+        return unblind(signedVote, vote);
     }
 
     private BlindedVote blindVote(Vote vote) {

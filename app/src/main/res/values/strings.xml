@@ -49,4 +49,7 @@
     <string name="votings_results">Votings results</string>
     <string name="title_activity_vote_results">VoteResults</string>
     <string name="use_proxy_server_to_send_vote">Use proxy server to send vote</string>
+    <string name="send_vote">Send vote</string>
+    <string name="send_using_proxy_server">Send using proxy server</string>
+    <string name="sign_vote_and_add_to_waiting_list">Sign vote and add to waiting list</string>
 </resources>

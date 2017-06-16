@@ -8,10 +8,11 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.SparseArray;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ListView;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -28,10 +29,12 @@ public class VoteActivity extends AppCompatActivity {
     private Voting voting;
     private RadioButtonsListAdapter radioButtonsListAdapter;
     private VoteTask voteTask;
-    private CheckBox useProxyCheckbox;
+    private RadioGroup votingType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getPreferences(MODE_PRIVATE);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vote);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -54,7 +57,8 @@ public class VoteActivity extends AppCompatActivity {
         TextView votingQuestion = (TextView) findViewById(R.id.voting_question);
         votingQuestion.setText(voting.getVotingContent().getQuestion());
 
-        useProxyCheckbox = (CheckBox) findViewById(R.id.use_proxy_checkbox);
+        votingType = (RadioGroup) findViewById(R.id.voting_type_radio_group);
+
 
         createVotingAnswersList();
 
@@ -105,14 +109,14 @@ public class VoteActivity extends AppCompatActivity {
 
     }
 
+    private VotingMethod getVotingMethod() {
+        return VotingMethod.getVotingMethodById(votingType.getCheckedRadioButtonId());
+    }
+
     private void createVotingAnswersList() {
         ListView answerList = (ListView) findViewById(R.id.voting_answers_list);
         radioButtonsListAdapter = new RadioButtonsListAdapter(this, R.layout.answers_list, new ArrayList<>(voting.getVotingContent().getAnswers()));
         answerList.setAdapter(radioButtonsListAdapter);
-    }
-
-    private boolean useProxy() {
-        return VoteActivity.this.useProxyCheckbox.isChecked();
     }
 
     private class VoteTask extends AsyncTask<Void, Void, Boolean> {
@@ -126,7 +130,16 @@ public class VoteActivity extends AppCompatActivity {
         @Override
         protected Boolean doInBackground(Void... params) {
             VoteService service = new VoteServiceImpl();
-            return service.vote(voting, answer, useProxy());
+
+            switch (getVotingMethod()) {
+                case VOTE:
+                    return service.vote(voting, answer, false);
+                case VOTE_PROXY:
+                    return service.vote(voting, answer, true);
+                case ADD_TO_WAITING_LIST:
+                    return service.addToWaitingList(voting, answer);
+            }
+            return false;
         }
 
         @Override
@@ -135,6 +148,31 @@ public class VoteActivity extends AppCompatActivity {
             showAnswerAndClose(result);
         }
 
+    }
+
+    private enum VotingMethod {
+        VOTE(R.id.send_vote_option),
+        VOTE_PROXY(R.id.use_proxy_option),
+        ADD_TO_WAITING_LIST(R.id.add_to_waiting_list_option);
+
+        private final static SparseArray<VotingMethod> votingTypeMap = new SparseArray<>();
+        private final int id;
+
+        static {
+            for (VotingMethod value : values()) {
+                votingTypeMap.put(value.id, value);
+            }
+        }
+
+        VotingMethod(int radioButtonId) {
+            this.id = radioButtonId;
+        }
+
+        public static VotingMethod getVotingMethodById(int id) {
+            return votingTypeMap.get(id);
+        }
+
+        ;
     }
 
 }

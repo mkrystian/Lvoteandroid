@@ -32,6 +32,7 @@ import java.util.List;
 
 import pl.edu.agh.student.mprezes.lvoteandroid.R;
 import pl.edu.agh.student.mprezes.lvoteandroid.model.authentication.AuthenticationResult;
+import pl.edu.agh.student.mprezes.lvoteandroid.service.WaitingServiceImpl;
 import pl.edu.agh.student.mprezes.lvoteandroid.service.authentication.AuthenticationService;
 import pl.edu.agh.student.mprezes.lvoteandroid.service.authentication.AuthenticationServiceImpl;
 
@@ -55,6 +56,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AndroidThreeTen.init(this);
+        WaitingServiceImpl.initialize(this);
         setContentView(R.layout.activity_login);
         // Set up the login form.
         mUsernameView = (AutoCompleteTextView) findViewById(R.id.email);

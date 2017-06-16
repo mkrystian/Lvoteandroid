@@ -12,4 +12,5 @@ public interface VoteService {
 
     boolean vote(Voting voting, VotingAnswer votingAnswer, boolean useProxy);
 
+    boolean addToWaitingList(Voting voting, VotingAnswer votingAnswer);
 }

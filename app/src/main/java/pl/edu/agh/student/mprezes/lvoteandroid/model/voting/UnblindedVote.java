@@ -1,5 +1,7 @@
 package pl.edu.agh.student.mprezes.lvoteandroid.model.voting;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -54,6 +56,7 @@ public class UnblindedVote implements Serializable {
         this.signature = signature;
     }
 
+    @JsonIgnore
     public String getStringRepresentation() {
         return String.format("votingId=%s;answerId=%s;randomNumber=%s", votingId, answerId, randomNumber);
     }
