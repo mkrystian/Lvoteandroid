@@ -44,4 +44,8 @@
     <string name="result_label">Result:</string>
     <string name="vote_submitted">Vote submitted</string>
     <string name="vote_rejected">Vote rejected!</string>
+    <string name="title_activity_results">Results</string>
+    <string name="results">Results</string>
+    <string name="votings_results">Votings results</string>
+    <string name="title_activity_vote_results">VoteResults</string>
 </resources>

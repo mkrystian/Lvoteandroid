@@ -14,4 +14,6 @@ public interface VotingService {
     List<Voting> getAllOwnedVotings();
 
     List<Voting> getAllAvailableVotings();
+
+    List<Voting> getResults();
 }

@@ -29,4 +29,9 @@ public class VotingServiceImpl extends AbstractService implements VotingService 
     public List<Voting> getAllAvailableVotings() {
         return converterDTO.convert(votingClientService.getAvaialableVotings(ContextProvider.getHeadersMap()));
     }
+
+    @Override
+    public List<Voting> getResults() {
+        return converterDTO.convert(votingClientService.getResults(ContextProvider.getHeadersMap()));
+    }
 }

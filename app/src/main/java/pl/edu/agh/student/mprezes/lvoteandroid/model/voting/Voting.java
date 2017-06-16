@@ -1,5 +1,7 @@
 package pl.edu.agh.student.mprezes.lvoteandroid.model.voting;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.threeten.bp.LocalDate;
 
@@ -23,6 +25,7 @@ public class Voting implements Serializable {
     private LocalDate end;
     private VotingContent votingContent;
     private Set<Account> alreadyVoted;
+    private Set<Vote> votes;
 
     public Long getId() {
         return id;
@@ -72,6 +75,34 @@ public class Voting implements Serializable {
         this.alreadyVoted = alreadyVoted;
     }
 
+    public Set<Vote> getVotes() {
+        return votes;
+    }
+
+    public void setVotes(Set<Vote> votes) {
+        this.votes = votes;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Voting voting = (Voting) o;
+
+        return new EqualsBuilder()
+                .append(id, voting.id)
+                .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+                .append(id)
+                .toHashCode();
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this)
@@ -81,6 +112,7 @@ public class Voting implements Serializable {
                 .append("end", end)
                 .append("votingContent", votingContent)
                 .append("alreadyVoted", alreadyVoted)
+                .append("votes", votes)
                 .toString();
     }
 }

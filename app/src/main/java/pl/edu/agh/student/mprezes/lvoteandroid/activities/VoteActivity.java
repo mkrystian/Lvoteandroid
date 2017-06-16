@@ -102,7 +102,7 @@ public class VoteActivity extends AppCompatActivity {
     }
 
     private void createVotingAnswersList() {
-        ListView answerList = (ListView) findViewById(R.id.voting_answers);
+        ListView answerList = (ListView) findViewById(R.id.voting_answers_list);
         radioButtonsListAdapter = new RadioButtonsListAdapter(this, R.layout.answers_list, new ArrayList<>(voting.getVotingContent().getAnswers()));
         answerList.setAdapter(radioButtonsListAdapter);
     }

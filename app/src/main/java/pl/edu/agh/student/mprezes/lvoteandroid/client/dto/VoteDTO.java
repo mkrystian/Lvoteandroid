@@ -17,7 +17,7 @@ public class VoteDTO implements Serializable {
     private Long id;
     private long votingId;
     private long answerId;
-    private long randomNumber;
+    private String randomNumber;
 
     public Long getId() {
         return id;
@@ -43,11 +43,11 @@ public class VoteDTO implements Serializable {
         this.answerId = answerId;
     }
 
-    public long getRandomNumber() {
+    public String getRandomNumber() {
         return randomNumber;
     }
 
-    public void setRandomNumber(long randomNumber) {
+    public void setRandomNumber(String randomNumber) {
         this.randomNumber = randomNumber;
     }
 

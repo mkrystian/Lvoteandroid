@@ -54,6 +54,6 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:textAllCaps="false"
-            android:text="@string/results_of_finished_votings" />
+            android:text="@string/votings_results" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

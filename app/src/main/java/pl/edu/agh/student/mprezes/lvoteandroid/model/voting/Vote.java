@@ -19,10 +19,10 @@ public class Vote implements Serializable {
 
     private Long votingId;
     private Long answerId;
-    private BigInteger randomNumber;
+    private String randomNumber;
 
     public Vote() {
-        randomNumber = new BigInteger(256, new Random());
+        randomNumber = new BigInteger(256, new Random()).toString();
     }
 
     public Long getVotingId() {
@@ -41,7 +41,7 @@ public class Vote implements Serializable {
         this.answerId = answerId;
     }
 
-    public BigInteger getRandomNumber() {
+    public String getRandomNumber() {
         return randomNumber;
     }
 

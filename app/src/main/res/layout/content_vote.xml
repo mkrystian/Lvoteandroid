@@ -33,7 +33,7 @@
             android:textStyle="bold" />
 
         <ListView
-            android:id="@+id/voting_answers"
+            android:id="@+id/voting_answers_list"
             android:layout_width="match_parent"
             android:layout_height="350dp" />
 
