@@ -49,11 +49,19 @@
             android:textStyle="bold"
             android:visibility="invisible" />
 
+        <CheckBox
+            android:id="@+id/use_proxy_checkbox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/use_proxy_server_to_send_vote" />
+
         <Button
             android:id="@+id/vote_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/vote" />
+
 
     </LinearLayout>
 

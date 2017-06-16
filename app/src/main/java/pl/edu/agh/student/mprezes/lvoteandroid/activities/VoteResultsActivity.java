@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +43,13 @@ public class VoteResultsActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         voting = (Voting) bundle.getSerializable("content");
 
+        TextView votingQuestion = (TextView) findViewById(R.id.voting_question);
+        votingQuestion.setText(voting.getVotingContent().getQuestion());
+
+        createAnswersList();
+    }
+
+    private void createAnswersList() {
         List<AnswersContainer> answersContainers = new ArrayList<>();
         for (VotingAnswer answer : voting.getVotingContent().getAnswers()) {
             AnswersContainer answerContainer = new AnswersContainer();

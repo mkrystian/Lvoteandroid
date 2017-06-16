@@ -48,4 +48,5 @@
     <string name="results">Results</string>
     <string name="votings_results">Votings results</string>
     <string name="title_activity_vote_results">VoteResults</string>
+    <string name="use_proxy_server_to_send_vote">Use proxy server to send vote</string>
 </resources>

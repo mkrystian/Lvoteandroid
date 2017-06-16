@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -27,6 +28,7 @@ public class VoteActivity extends AppCompatActivity {
     private Voting voting;
     private RadioButtonsListAdapter radioButtonsListAdapter;
     private VoteTask voteTask;
+    private CheckBox useProxyCheckbox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,8 @@ public class VoteActivity extends AppCompatActivity {
         votingTitle.setText(voting.getName());
         TextView votingQuestion = (TextView) findViewById(R.id.voting_question);
         votingQuestion.setText(voting.getVotingContent().getQuestion());
+
+        useProxyCheckbox = (CheckBox) findViewById(R.id.use_proxy_checkbox);
 
         createVotingAnswersList();
 
@@ -107,6 +111,10 @@ public class VoteActivity extends AppCompatActivity {
         answerList.setAdapter(radioButtonsListAdapter);
     }
 
+    private boolean useProxy() {
+        return VoteActivity.this.useProxyCheckbox.isChecked();
+    }
+
     private class VoteTask extends AsyncTask<Void, Void, Boolean> {
 
         private VotingAnswer answer;
@@ -118,7 +126,7 @@ public class VoteActivity extends AppCompatActivity {
         @Override
         protected Boolean doInBackground(Void... params) {
             VoteService service = new VoteServiceImpl();
-            return service.vote(voting, answer);
+            return service.vote(voting, answer, useProxy());
         }
 
         @Override

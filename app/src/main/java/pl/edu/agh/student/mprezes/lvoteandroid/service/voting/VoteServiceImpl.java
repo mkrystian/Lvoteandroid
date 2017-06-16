@@ -38,7 +38,7 @@ public class VoteServiceImpl extends AbstractService implements VoteService {
     private final LongSparseArray<RSABlindingParameters> rsaBlindingMap = new LongSparseArray<>();
 
     @Override
-    public boolean vote(Voting voting, VotingAnswer votingAnswer) {
+    public boolean vote(Voting voting, VotingAnswer votingAnswer, boolean useProxy) {
         Vote vote = new Vote();
         vote.setVotingId(voting.getId());
         vote.setAnswerId(votingAnswer.getId());
@@ -47,7 +47,7 @@ public class VoteServiceImpl extends AbstractService implements VoteService {
         SignedVote signedVote = sing(blindedVote);
         UnblindedVote unblindedVote = unblind(signedVote, vote);
 
-        return sendUnblindedVote(unblindedVote);
+        return sendUnblindedVote(unblindedVote, useProxy);
     }
 
     private BlindedVote blindVote(Vote vote) {
@@ -82,8 +82,8 @@ public class VoteServiceImpl extends AbstractService implements VoteService {
         return clientService.signVote(blindedVote, ContextProvider.getHeadersMap());
     }
 
-    private boolean sendUnblindedVote(UnblindedVote unblindedVote) {
-        return clientService.sendVote(unblindedVote);
+    private boolean sendUnblindedVote(UnblindedVote unblindedVote, boolean useProxy) {
+        return getClientService(VoteClientService.class, useProxy).sendVote(unblindedVote);
     }
 
     private RSAKeyParameters getPublicKey(Long votingId) {

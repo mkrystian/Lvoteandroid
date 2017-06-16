@@ -17,9 +17,17 @@
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent">
 
+        <TextView
+            android:id="@+id/voting_question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="" />
+
         <ListView
             android:id="@+id/vote_result_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>

@@ -10,6 +10,6 @@ import pl.edu.agh.student.mprezes.lvoteandroid.model.voting.VotingAnswer;
 
 public interface VoteService {
 
-    boolean vote(Voting voting, VotingAnswer votingAnswer);
+    boolean vote(Voting voting, VotingAnswer votingAnswer, boolean useProxy);
 
 }
