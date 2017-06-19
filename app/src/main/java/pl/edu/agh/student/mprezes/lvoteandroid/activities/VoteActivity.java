@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -19,6 +18,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import pl.edu.agh.student.mprezes.lvoteandroid.R;
+import pl.edu.agh.student.mprezes.lvoteandroid.activities.floatingactionbutton.FloatingActionButtonController;
 import pl.edu.agh.student.mprezes.lvoteandroid.activities.listview.RadioButtonsListAdapter;
 import pl.edu.agh.student.mprezes.lvoteandroid.model.voting.Voting;
 import pl.edu.agh.student.mprezes.lvoteandroid.model.voting.VotingAnswer;
@@ -32,6 +32,7 @@ public class VoteActivity extends AppCompatActivity {
     private VoteTask voteTask;
     private RadioGroup votingType;
     private ProgressDialog progressDialog;
+    private FloatingActionButtonController floatingActionButtonController;
 
 
     @Override
@@ -43,14 +44,8 @@ public class VoteActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        floatingActionButtonController = new FloatingActionButtonController((FloatingActionButton) findViewById(R.id.fab), this);
+        floatingActionButtonController.create();
 
         Bundle bundle = getIntent().getExtras();
         voting = (Voting) bundle.getSerializable("content");
@@ -156,6 +151,8 @@ public class VoteActivity extends AppCompatActivity {
             voteTask = null;
             showAnswerAndClose(result);
             progressDialog.dismiss();
+            floatingActionButtonController.refresh();
+
         }
 
     }
@@ -182,7 +179,6 @@ public class VoteActivity extends AppCompatActivity {
             return votingTypeMap.get(id);
         }
 
-        ;
     }
 
 }

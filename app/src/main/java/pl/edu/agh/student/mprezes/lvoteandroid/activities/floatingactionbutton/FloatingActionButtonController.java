@@ -38,6 +38,10 @@ public class FloatingActionButtonController {
         });
     }
 
+    public void refresh() {
+        setIcon();
+    }
+
     private void setIcon() {
         if (service.hasNewVotes()) {
             button.setImageResource(R.drawable.ic_warining);
