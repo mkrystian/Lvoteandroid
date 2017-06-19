@@ -16,4 +16,6 @@ public interface VotingService {
     List<Voting> getAllAvailableVotings();
 
     List<Voting> getResults();
+
+    void delete(Long votingId);
 }

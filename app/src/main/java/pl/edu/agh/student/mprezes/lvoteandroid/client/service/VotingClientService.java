@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import feign.HeaderMap;
+import feign.Param;
 import feign.RequestLine;
 import pl.edu.agh.student.mprezes.lvoteandroid.client.dto.VotingDTO;
 
@@ -22,4 +23,7 @@ public interface VotingClientService extends ClientService {
 
     @RequestLine("GET /results")
     List<VotingDTO> getResults(@HeaderMap Map<String, ?> headersMap);
+
+    @RequestLine(("DELETE /votings/{id}"))
+    void delete(@Param("id") Long votingId, @HeaderMap Map<String, ?> headersMap);
 }

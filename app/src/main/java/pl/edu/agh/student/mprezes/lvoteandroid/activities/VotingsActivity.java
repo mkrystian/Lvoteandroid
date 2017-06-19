@@ -32,10 +32,10 @@ public class VotingsActivity extends AppCompatActivity {
         floatingActionButtonController.create();
 
 
-        loadData();
+        reloadData();
     }
 
-    private void loadData() {
+    public void reloadData() {
         new GetAvailableVotings().execute();
         new GetOwnedVotings().execute();
     }
@@ -44,7 +44,7 @@ public class VotingsActivity extends AppCompatActivity {
     public void onRestart() {
         super.onRestart();
         floatingActionButtonController.refresh();
-        loadData();
+        reloadData();
     }
 
     private void createAvailableVotingsList(List<Voting> votings) {
