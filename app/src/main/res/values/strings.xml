@@ -55,4 +55,5 @@
     <string name="title_activity_waiting_list">Waiting List</string>
     <string name="send">Send</string>
     <string name="no_votings_selected">No votings selected</string>
+    <string name="groups">Groups</string>
 </resources>

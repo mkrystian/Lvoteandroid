@@ -44,7 +44,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:textAllCaps="false"
-            android:text="@string/manage_groups" />
+            android:text="@string/groups" />
 
         <Button
             android:id="@+id/results_of_finished_votings"
