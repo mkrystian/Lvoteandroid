@@ -10,50 +10,51 @@
 
 
     <LinearLayout
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="344dp"
         android:layout_height="495dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <Button
             android:id="@+id/list_of_available_votings"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:textAllCaps="false"
-            android:text="@string/list_of_available_votings" />
+            android:layout_marginTop="15dp"
+            android:text="@string/list_of_available_votings"
+            android:textAllCaps="false" />
 
         <Button
             android:id="@+id/create_new_votings"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
+            android:layout_marginTop="15dp"
+            android:text="@string/create_new_votings"
             android:textAllCaps="false"
-            android:text="@string/create_new_votings" />
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/manage_groups"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:textAllCaps="false"
-            android:text="@string/groups" />
+            android:layout_marginTop="15dp"
+            android:text="@string/groups"
+            android:textAllCaps="false" />
 
         <Button
             android:id="@+id/results_of_finished_votings"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:textAllCaps="false"
-            android:text="@string/votings_results" />
+            android:layout_marginTop="15dp"
+            android:text="@string/votings_results"
+            android:textAllCaps="false" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
