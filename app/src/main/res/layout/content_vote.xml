@@ -35,7 +35,7 @@
         <ListView
             android:id="@+id/voting_answers_list"
             android:layout_width="match_parent"
-            android:layout_height="330dp" />
+            android:layout_height="280dp" />
 
         <TextView
             android:id="@+id/vote_error_text"
