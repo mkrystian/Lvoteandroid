@@ -1,11 +1,15 @@
 package pl.edu.agh.student.mprezes.lvoteandroid.service.voting;
 
+import android.util.Log;
 import android.util.LongSparseArray;
 
 import org.bouncycastle.crypto.CryptoException;
 import org.bouncycastle.crypto.params.RSABlindingParameters;
 import org.bouncycastle.crypto.params.RSAKeyParameters;
 
+import java.util.List;
+
+import feign.FeignException;
 import pl.edu.agh.student.mprezes.lvoteandroid.client.dto.RSAKeyParametersDTO;
 import pl.edu.agh.student.mprezes.lvoteandroid.client.service.PublicKeyClientService;
 import pl.edu.agh.student.mprezes.lvoteandroid.client.service.VoteClientService;
@@ -112,7 +116,22 @@ public class VoteServiceImpl extends AbstractService implements VoteService {
     }
 
     private boolean sendUnblindedVote(UnblindedVote unblindedVote, boolean useProxy) {
-        return getClientService(VoteClientService.class, useProxy).sendVote(unblindedVote);
+        boolean result = false;
+        List<VoteClientService> clientService1 = getClientService(VoteClientService.class, useProxy);
+        for (int i = 0; i < clientService1.size() && !result; i++) {
+            VoteClientService voteClientService = clientService1.get(i);
+            try {
+                result = voteClientService.sendVote(unblindedVote);
+            } catch (FeignException e) {
+                Log.w("Sending unblinded vote", "Could not send using this params", e);
+            }
+        }
+
+        if (!result) {
+            Log.e("Sending unblinded vote", "Sending failed");
+        }
+
+        return result;
     }
 
     private RSAKeyParameters getPublicKey(Long votingId) {
