@@ -1,5 +1,6 @@
 package pl.edu.agh.student.mprezes.lvoteandroid.activities;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -30,6 +31,8 @@ public class VoteActivity extends AppCompatActivity {
     private RadioButtonsListAdapter radioButtonsListAdapter;
     private VoteTask voteTask;
     private RadioGroup votingType;
+    private ProgressDialog progressDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,6 +131,12 @@ public class VoteActivity extends AppCompatActivity {
         }
 
         @Override
+        protected void onPreExecute() {
+            progressDialog = ProgressDialog.show(VoteActivity.this, "Connecting to server",
+                    "Please wait", true);
+        }
+
+        @Override
         protected Boolean doInBackground(Void... params) {
             VoteService service = new VoteServiceImpl();
 
@@ -146,6 +155,7 @@ public class VoteActivity extends AppCompatActivity {
         protected void onPostExecute(Boolean result) {
             voteTask = null;
             showAnswerAndClose(result);
+            progressDialog.dismiss();
         }
 
     }

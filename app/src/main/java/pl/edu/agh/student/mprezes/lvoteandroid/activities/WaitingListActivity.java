@@ -1,5 +1,6 @@
 package pl.edu.agh.student.mprezes.lvoteandroid.activities;
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -25,6 +26,7 @@ public class WaitingListActivity extends AppCompatActivity {
     private WaitingListAdapter waitingListAdapter;
     private CheckBox useProxyCheckbox;
     private SendVoteTask sendVoteTask;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,9 +76,11 @@ public class WaitingListActivity extends AppCompatActivity {
         });
     }
 
+
     private boolean useProxy() {
         return useProxyCheckbox.isChecked();
     }
+
 
     private void createWaitingList() {
         ListView waitingList = (ListView) findViewById(R.id.waiting_list);
@@ -85,6 +89,12 @@ public class WaitingListActivity extends AppCompatActivity {
     }
 
     private class SendVoteTask extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            progressDialog = ProgressDialog.show(WaitingListActivity.this, "Connecting to server",
+                    "Please wait", true);
+        }
 
         @Override
         protected Void doInBackground(Void... params) {
@@ -100,6 +110,7 @@ public class WaitingListActivity extends AppCompatActivity {
             service.updateVotes();
             WaitingListActivity.this.recreate();
             sendVoteTask = null;
+            progressDialog.dismiss();
         }
 
     }
