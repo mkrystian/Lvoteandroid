@@ -18,8 +18,8 @@ import pl.edu.agh.student.mprezes.lvoteandroid.client.service.ClientService;
 
 public abstract class AbstractService {
 
-    private final static String API_URL = "http://lvote.pl:8080/api";
-    //private final static String API_URL = "http://192.168.56.1:8080/api";
+    //private final static String API_URL = "http://lvote.pl:8080/api";
+    private final static String API_URL = "http://192.168.56.1:8080/api";
 
     //private final String PROXY_ADDRESS = "203.112.211.106";
     //private final String PROXY_ADDRESS = "41.36.150.27";
