@@ -23,11 +23,13 @@ import pl.edu.agh.student.mprezes.lvoteandroid.model.ProxyParameters;
 
 public abstract class AbstractService {
 
-    private final static String API_URL = "http://lvote.pl:8080/api";
-    //private final static String API_URL = "http://192.168.56.1:8080/api";
+    //private final static String HTTPS_API_URL = "https://lvote.pl:443/api";
+    //private final static String API_URL = "http://lvote.pl:80/api";
+    private final static String HTTPS_API_URL = "http://192.168.56.1:8080/api";
+    private final static String API_URL = "http://192.168.56.1:8081/api";
 
     private final List<ProxyParameters> proxyList = Arrays.asList(
-            new ProxyParameters("203.112.211.106", 8080), new ProxyParameters("41.36.150.27", 8080), new ProxyParameters("91.99.149.81", 8080));
+            new ProxyParameters("187.16.2.160", 8080), new ProxyParameters("183.222.102.94", 8080));
 
     private Feign.Builder feignBuilder() {
 
@@ -39,13 +41,13 @@ public abstract class AbstractService {
 
     protected final <T extends ClientService> T getClientService(Class<T> serviceClass) {
         return feignBuilder()
-                .target(serviceClass, API_URL);
+                .target(serviceClass, HTTPS_API_URL);
     }
 
     protected final <T extends ClientService> T getClientService(Class<T> serviceClass, ErrorDecoder errorDecoder) {
         return feignBuilder()
                 .errorDecoder(errorDecoder)
-                .target(serviceClass, API_URL);
+                .target(serviceClass, HTTPS_API_URL);
     }
 
     protected final <T extends ClientService> List<T> getClientService(Class<T> serviceClass, boolean proxy) {
@@ -60,7 +62,7 @@ public abstract class AbstractService {
             return result;
         } else {
             return Collections.singletonList(feignBuilder()
-                    .target(serviceClass, API_URL));
+                    .target(serviceClass, HTTPS_API_URL));
         }
 
     }
